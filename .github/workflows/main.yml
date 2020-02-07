@@ -6,27 +6,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
-    - name: FTP-Deploy-Action
-      uses: SamKirkland/FTP-Deploy-Action@2.0.0
-      env:
-        FTP_SERVER: files.000webhost.com
-        FTP_USERNAME: objetos-casa
-        FTP_PASSWORD: deumanove
-        ARGS: --delete
-
-
-
-
-
-
-on: push
-name: Publicando Site
-jobs:
-  FTP-Deploy-Action:
-    name: FTP-Deploy-Action
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@master
     
     - name: Use Node.js 12.x
       uses: actions/setup-node@v1
