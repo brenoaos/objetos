@@ -1,0 +1,31 @@
+<mat-sidenav-container>
+  <mat-sidenav class="sidenav" #sidenav mode="side" [(opened)]="opened">
+    <mat-toolbar color="dark-blue" (click)='sidenav.close()'>
+      <span>Menu</span>
+    </mat-toolbar>
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          Cadastros
+        </mat-expansion-panel-header>
+        <mat-nav-list>
+          <a mat-list-item [routerLink]="['pessoas']" (click)='sidenav.close()'>
+            <mat-icon> people </mat-icon> Pessoa
+          </a>
+          <a mat-list-item [routerLink]="['caixas']" (click)='sidenav.close()'>
+            <mat-icon> archive </mat-icon> Caixa
+          </a>
+        </mat-nav-list>
+
+      </mat-expansion-panel>
+
+    </mat-accordion>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <app-menu [sidenav]='sidenav'></app-menu>
+    <div class='container-fluid'>
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

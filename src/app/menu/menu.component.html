@@ -1,0 +1,13 @@
+<div>
+    <mat-toolbar color="primary">
+
+        <button mat-icon-button (click)="toggleMenu($event)">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <button mat-button [routerLink]="['/']" (click)='closeMenu($event)'>
+            <mat-icon> house </mat-icon>
+            Controle de Objetos
+        </button>
+
+    </mat-toolbar>
+</div>
