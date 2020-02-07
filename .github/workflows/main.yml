@@ -1,5 +1,5 @@
 on: push
-name: Publish Website
+name: Publicando Site
 jobs:
   FTP-Deploy-Action:
     name: FTP-Deploy-Action
@@ -9,7 +9,43 @@ jobs:
     - name: FTP-Deploy-Action
       uses: SamKirkland/FTP-Deploy-Action@2.0.0
       env:
-        FTP_SERVER: ftp.samkirkland.com
-        FTP_USERNAME: myFtpUserName
-        FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+        FTP_SERVER: files.000webhost.com
+        FTP_USERNAME: objetos-casa
+        FTP_PASSWORD: deumanove
+        ARGS: --delete
+
+
+
+
+
+
+on: push
+name: Publicando Site
+jobs:
+  FTP-Deploy-Action:
+    name: FTP-Deploy-Action
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    
+    - name: Use Node.js 12.x
+      uses: actions/setup-node@v1
+      with:
+        node-version: '12.x'
+        
+    - name: Build Project
+      run: |
+        npm install
+        npm run build --prod
+        
+    - name: List output files
+      run: ls dist
+      
+    - name: FTP-Deploy-Action
+      uses: SamKirkland/FTP-Deploy-Action@2.0.0
+      env:
+        FTP_SERVER: files.000webhost.com
+        FTP_USERNAME: objetos-casa
+        FTP_PASSWORD: deumanove
+        LOCAL_DIR: dist
         ARGS: --delete
