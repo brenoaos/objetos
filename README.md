@@ -1,4 +1,4 @@
-![Publicando Site](https://github.com/brenoaos/objetos/workflows/Publicando%20Site/badge.svg?branch=master&event=pull_request)
+![Publicando Site](https://github.com/brenoaos/objetos/workflows/Publicando%20Site/badge.svg?branch=master)
 
 #### Prerequisites
 Before you begin, make sure your development environment includes `Node.js®` and an `npm` package manager.
