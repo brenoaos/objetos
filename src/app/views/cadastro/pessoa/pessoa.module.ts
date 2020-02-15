@@ -5,19 +5,21 @@ import { PessoaRoutingModule } from './pessoa.rounting';
 import { PessoaListComponent } from './list/pessoa.list.component';
 import { PessoaFormComponent } from './form/pessoa.form.component';
 import { PessoaService } from './pessoa.service'
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   imports: [
     CommonModule,
     PessoaRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   declarations: [
     PessoaListComponent,
     PessoaFormComponent,
   ],
   providers: [
-    PessoaService
+    PessoaService,
   ]
 })
 export class PessoaModule { }

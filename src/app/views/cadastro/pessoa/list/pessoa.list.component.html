@@ -5,11 +5,25 @@
     <div class="col-sm-12">
       <div class="card">
         <div class="card-header">
-          <strong>Pessoa</strong>
-          <small>Cadastro</small>
+          <div class="row">
+            <div class="col-sm-2">
+              <strong>Pessoa</strong>
+              <small>Listando</small>
+            </div>
+            <div class="col-sm-7">
+              <div #searchComponent class="form-group row">
+                <input class="form-control" type="text" nome="search" id="search" placeholder="Insira seu criterio de busca">
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <button type="button" class="btn btn-primary btn-round">
+                <i class="material-icons">refresh</i>
+              </button>
+            </div>
+          </div> <!-- /.row -->
         </div>
 
-        <table class="table">
+        <table class="table" (hidden)="pessoas.length == 0">
           <thead>
             <tr>
               <th scope="col">ID</th>
@@ -33,13 +47,19 @@
             </tr>
           </tbody>
         </table>
+
+        <div class="row" (hidden)="pessoas.length > 0">
+          <div class="col-sm-12">
+            <p> Nenhum registro encontrado! </p>
+          </div>
+        </div>
       </div>
     </div>
     <!--/.col-->
   </div>
   <!--/.row-->
 </div>
-<nav aria-label="...">
+<nav #navegation class="left" aria-label="...">
   <ul class="pagination">
     <li class="page-item disabled">
       <span class="page-link">Retornar</span>
@@ -64,5 +84,5 @@
       <a class="page-link" href="#">Avançar</a>
     </li>
   </ul>
-
+  {{navegation | json}}
 </nav>

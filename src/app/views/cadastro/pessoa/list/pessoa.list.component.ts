@@ -6,7 +6,7 @@ import { Pessoa } from '../../../../models/pessoa.model';
 @Component({
   selector: 'app-pessoa-list',
   templateUrl: './pessoa.list.component.html',
-  styleUrls: ['./pessoa.list.component.scss']
+  styleUrls: ['./pessoa.list.component.scss', ]
 })
 export class PessoaListComponent implements OnInit {
 
@@ -20,7 +20,8 @@ export class PessoaListComponent implements OnInit {
   
 
   ngOnInit() {
-    this.pessoas = this.servico.getPessoas();
+    debugger;
+    this.servico.getPessoas().subscribe((rest) => {debugger; this.pessoas = rest.registros});
   }
 
   
