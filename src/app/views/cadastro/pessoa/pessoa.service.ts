@@ -12,7 +12,8 @@ export class PessoaService {
     }
 
     getPessoas(): Observable<any> {
-        return this.http.get(`${URL_API.urlApi()}/pessoas`);
+        debugger;
+        return this.http.get<Pessoa[]>(`${URL_API.urlApi()}/pessoas`);
     }
 
 }
