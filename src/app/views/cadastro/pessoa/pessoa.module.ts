@@ -5,9 +5,6 @@ import { PessoaRoutingModule } from './pessoa.rounting';
 import { PessoaListComponent } from './list/pessoa.list.component';
 import { PessoaFormComponent } from './form/pessoa.form.component';
 import { PessoaService } from './pessoa.service'
-import { CompDropdownsComponent } from '../../../core/components/dropdown/dropdowns.component';
-
-
 
 @NgModule({
   imports: [
