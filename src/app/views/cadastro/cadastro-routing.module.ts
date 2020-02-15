@@ -1,17 +1,15 @@
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 
-import { PessoaComponent } from './pessoa/pessoa.component';
-
 const routes: Routes = [
     {
         path: '',
         children: [{
             path: 'pessoa',
-            component: PessoaComponent,
+            loadChildren: () => import('./pessoa/pessoa.module').then(m => m.PessoaModule),
             data: {
-                title: 'Pessoa'
-            }
+                title: 'Cadastro'
+            },
         }]
     }
 ];
