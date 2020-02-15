@@ -20,7 +20,8 @@ export class PessoaListComponent implements OnInit {
   
 
   ngOnInit() {
-    this.pessoas = this.servico.getPessoas();
+    debugger;
+    this.servico.getPessoas().subscribe((rest) => this.pessoas = rest);
   }
 
   

@@ -39,7 +39,7 @@
   </div>
   <!--/.row-->
 </div>
-<nav aria-label="...">
+<nav #navegation class="left" aria-label="...">
   <ul class="pagination">
     <li class="page-item disabled">
       <span class="page-link">Retornar</span>
@@ -52,7 +52,7 @@
       </span>
     </li>
     <li><a class="page-link" href="#">3</a></li>
-    <li class="page-item">
+    <li class="page-item" >
       <select class="page-link">
         <option>10</option>
         <option>30</option>
@@ -64,5 +64,5 @@
       <a class="page-link" href="#">Avançar</a>
     </li>
   </ul>
-
+{{navegation | json}}
 </nav>
