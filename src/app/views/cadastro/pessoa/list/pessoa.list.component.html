@@ -1,0 +1,68 @@
+<h2>Cadastro de Pessoa - list</h2>
+
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-header">
+          <strong>Pessoa</strong>
+          <small>Cadastro</small>
+        </div>
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Nome</th>
+              <th scope="col">Sobrenome</th>
+              <th scope="col">Apelido</th>
+              <th scope="col">Dono</th>
+              <th scope="col">Zelador</th>
+              <th scope="col">Opções</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let pessoa of pessoas">
+              <th scope="row">{{pessoa.codigo}}</th>
+              <td>{{pessoa.nome}}</td>
+              <td>{{pessoa.sobrenome}}</td>
+              <td>{{pessoa.apelido}}</td>
+              <td>{{pessoa.isdono}}</td>
+              <td>{{pessoa.isZelador}}</td>
+              <td><i class="cui-options icons"></i></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!--/.col-->
+  </div>
+  <!--/.row-->
+</div>
+<nav aria-label="...">
+  <ul class="pagination">
+    <li class="page-item disabled">
+      <span class="page-link">Retornar</span>
+    </li>
+    <li class="page-item"><a class="page-link" href="#">1</a></li>
+    <li class="page-item active" aria-current="page">
+      <span class="page-link">
+        2
+        <span class="sr-only">(current)</span>
+      </span>
+    </li>
+    <li><a class="page-link" href="#">3</a></li>
+    <li class="page-item">
+      <select class="page-link">
+        <option>10</option>
+        <option>30</option>
+        <option>60</option>
+        <option>90</option>
+      </select>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="#">Avançar</a>
+    </li>
+  </ul>
+
+</nav>
