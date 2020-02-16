@@ -16,6 +16,9 @@ const routes: Routes = [
         data: {
             title: 'Pessoa'
         },
+        children:[
+            
+        ],
         component: PessoaFormComponent
     }
 ];

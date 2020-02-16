@@ -1,5 +1,3 @@
-<h2>Cadastro de Pessoa - list</h2>
-
 <div class="animated fadeIn">
   <div class="row">
     <div class="col-sm-12">
@@ -12,18 +10,19 @@
             </div>
             <div class="col-sm-7">
               <div #searchComponent class="form-group row">
-                <input class="form-control" type="text" nome="search" id="search" placeholder="Insira seu criterio de busca">
+                <input class="form-control" type="text" nome="search" id="search" (keyup)="pesquisaPessoa(searchInput)"
+                  placeholder="Insira seu criterio de busca" #searchInput>
               </div>
             </div>
             <div class="col-sm-3">
-              <button type="button" class="btn btn-primary btn-round">
-                <i class="material-icons">refresh</i>
+              <button type="button" class="btn btn-primary btn-round" (click)="atualizarLista()">
+                <i class="cis-reload"></i>
               </button>
             </div>
           </div> <!-- /.row -->
         </div>
 
-        <table class="table" (hidden)="pessoas.length == 0">
+        <table class="table" *ngIf="pessoas.length > 0">
           <thead>
             <tr>
               <th scope="col">ID</th>
@@ -41,14 +40,25 @@
               <td>{{pessoa.nome}}</td>
               <td>{{pessoa.sobrenome}}</td>
               <td>{{pessoa.apelido}}</td>
-              <td>{{pessoa.isdono}}</td>
+              <td>{{pessoa.isDono}}</td>
               <td>{{pessoa.isZelador}}</td>
-              <td><i class="cui-options icons"></i></td>
+              <td>
+                <div class="dropdown">
+                  <a class="btn" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    <i class="cui-options icons"></i>
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" [routerLink]="['edit', pessoa.codigo]" >Editar</a>
+                    <a class="dropdown-item" (click)="removerPessoa(pessoa.codigo)">Remover</a>
+                  </div>
+                </div>
+              </td>
             </tr>
           </tbody>
         </table>
 
-        <div class="row" (hidden)="pessoas.length > 0">
+        <div class="row" *ngIf="pessoas.length == 0">
           <div class="col-sm-12">
             <p> Nenhum registro encontrado! </p>
           </div>
@@ -59,10 +69,11 @@
   </div>
   <!--/.row-->
 </div>
+
 <nav #navegation class="left" aria-label="...">
   <ul class="pagination">
-    <li class="page-item disabled">
-      <span class="page-link">Retornar</span>
+    <li class="page-item" >
+      <button (disabled)="offset == 0" class="page-link" (click)="prevPage()">Retornar</button >
     </li>
     <li class="page-item"><a class="page-link" href="#">1</a></li>
     <li class="page-item active" aria-current="page">
@@ -73,16 +84,7 @@
     </li>
     <li><a class="page-link" href="#">3</a></li>
     <li class="page-item">
-      <select class="page-link">
-        <option>10</option>
-        <option>30</option>
-        <option>60</option>
-        <option>90</option>
-      </select>
-    </li>
-    <li class="page-item">
-      <a class="page-link" href="#">Avançar</a>
+      <button class="page-link" href="#" (click)="nextPage()">Avançar</button>
     </li>
   </ul>
-  {{navegation | json}}
 </nav>
