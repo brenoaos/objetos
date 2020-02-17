@@ -57,7 +57,7 @@ import { FormsModule } from '@angular/forms';
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
     ChartsModule,
-    FormsModule
+    FormsModule,
   ],
   declarations: [
     AppComponent,

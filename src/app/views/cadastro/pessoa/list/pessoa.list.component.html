@@ -1,0 +1,90 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-header">
+          <div class="row">
+            <div class="col-sm-2">
+              <strong>Pessoa</strong>
+              <small>Listando</small>
+            </div>
+            <div class="col-sm-7">
+              <div #searchComponent class="form-group row">
+                <input class="form-control" type="text" nome="search" id="search" (keyup)="pesquisaPessoa(searchInput)"
+                  placeholder="Insira seu criterio de busca" #searchInput>
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <button type="button" class="btn btn-primary btn-round" (click)="atualizarLista()">
+                <i class="cis-reload"></i>
+              </button>
+            </div>
+          </div> <!-- /.row -->
+        </div>
+
+        <table class="table" *ngIf="pessoas.length > 0">
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Nome</th>
+              <th scope="col">Sobrenome</th>
+              <th scope="col">Apelido</th>
+              <th scope="col">Dono</th>
+              <th scope="col">Zelador</th>
+              <th scope="col">Opções</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let pessoa of pessoas">
+              <th scope="row">{{pessoa.codigo}}</th>
+              <td>{{pessoa.nome}}</td>
+              <td>{{pessoa.sobrenome}}</td>
+              <td>{{pessoa.apelido}}</td>
+              <td>{{pessoa.isDono}}</td>
+              <td>{{pessoa.isZelador}}</td>
+              <td>
+                <div class="dropdown">
+                  <a class="btn" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    <i class="cui-options icons"></i>
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" [routerLink]="['edit', pessoa.codigo]" >Editar</a>
+                    <a class="dropdown-item" (click)="removerPessoa(pessoa.codigo)">Remover</a>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="row" *ngIf="pessoas.length == 0">
+          <div class="col-sm-12">
+            <p> Nenhum registro encontrado! </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--/.col-->
+  </div>
+  <!--/.row-->
+</div>
+
+<nav #navegation class="left" aria-label="...">
+  <ul class="pagination">
+    <li class="page-item" >
+      <button (disabled)="offset == 0" class="page-link" (click)="prevPage()">Retornar</button >
+    </li>
+    <li class="page-item"><a class="page-link" href="#">1</a></li>
+    <li class="page-item active" aria-current="page">
+      <span class="page-link">
+        2
+        <span class="sr-only">(current)</span>
+      </span>
+    </li>
+    <li><a class="page-link" href="#">3</a></li>
+    <li class="page-item">
+      <button class="page-link" href="#" (click)="nextPage()">Avançar</button>
+    </li>
+  </ul>
+</nav>

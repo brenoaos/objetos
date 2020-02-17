@@ -3,20 +3,16 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 import { CadastroRoutingModule } from './cadastro-routing.module';
-import { PessoaComponent } from './pessoa/pessoa.component';
+import { PessoaModule } from './pessoa/pessoa.module';
 
 
 
 @NgModule({
     imports: [
       CommonModule,
+      PessoaModule,
       CadastroRoutingModule,
       FormsModule
     ],
-    declarations: [
-        PessoaComponent
-    ]
-
-
 })
 export class CadastroModule { }
