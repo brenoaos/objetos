@@ -24,7 +24,7 @@
                 <label for="name">Dono</label>
                 <input list="listDono" #listaDonoInput class="form-control" name="dono" ngModel required>
                 <datalist id="listDono">
-                  <option *ngFor="let pessoa of pessoas" (keyUp)="getPessoa(listaDonoInput)">{{pessoa.codigo}} - {{pessoa.nome}}</option>
+                  <option value=""></option>
                 </datalist>
               </div>
             </div>
