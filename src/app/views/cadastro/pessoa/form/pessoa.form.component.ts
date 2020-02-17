@@ -1,5 +1,5 @@
-import { Component, OnInit, OnDestroy, ViewChildren } from '@angular/core';
-import { FormGroup, FormBuilder, FormsModule } from '@angular/forms';
+import { Component, OnInit, OnDestroy, ViewChildren, ViewChild } from '@angular/core';
+import { FormGroup, FormBuilder, FormsModule, NgForm } from '@angular/forms';
 import { PessoaService } from '../pessoa.service';
 import { Pessoa } from '../../../../models/pessoa.model';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -12,6 +12,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class PessoaFormComponent implements OnInit {
 
   pessoa: Pessoa;
+  @ViewChild('form') form: NgForm;
 
   constructor(
     private _service: PessoaService,
@@ -23,10 +24,13 @@ export class PessoaFormComponent implements OnInit {
 
   ) {
     this._activeRouter.params.subscribe(params => {
-      debugger;
+      
+      
       const codigo = params['id'];
       if (!isNaN(codigo)) {
-        this._service.getPessoasByID(codigo).subscribe((p: Pessoa) => {this.pessoa = p});
+        this._service.getPessoasByID(codigo).subscribe((p) => {
+          this.form.setValue(p);
+        });
       }
     });
 

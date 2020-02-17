@@ -9,6 +9,10 @@
           <small>Cadastro</small>
         </div>
         <form #form="ngForm" novalidate>
+          <input type="hidden" name="codigo" ngModel>
+          <input type="hidden" name="dataCadastro" ngModel>
+          <input type="hidden" name="dataAlteracao" ngModel>
+          
           <div class="card-body">
             <div class="row">
               <div class="col-sm-6">

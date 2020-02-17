@@ -34,7 +34,12 @@ export class PessoaService {
     }
 
     salvar(pessoa: Pessoa) {
-        return this.http.post(this.url, pessoa);
+        if (isNaN(pessoa.codigo)) {
+            return this.http.post(this.url, pessoa);
+        }
+
+        return this.http.patch(this.url, pessoa);
+
     }
 
 }
