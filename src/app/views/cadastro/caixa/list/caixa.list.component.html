@@ -26,7 +26,7 @@
           </div> <!-- /.row -->
         </div>
 
-        <table class="table" *ngIf="pessoas.length > 0">
+        <table class="table" >
           <thead>
             <tr>
               <th scope="col">ID</th>
@@ -39,13 +39,13 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let pessoa of pessoas">
-              <th scope="row">{{pessoa.codigo}}</th>
-              <td>{{pessoa.nome}}</td>
-              <td>{{pessoa.sobrenome}}</td>
-              <td>{{pessoa.apelido}}</td>
-              <td>{{pessoa.isDono}}</td>
-              <td>{{pessoa.isZelador}}</td>
+            <tr >
+              <th scope="row"></th>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
               <td>
                 <div class="dropdown">
                   <a class="btn" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
@@ -53,8 +53,8 @@
                     <i class="cui-options icons"></i>
                   </a>
                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" [routerLink]="['form', pessoa.codigo]" >Editar</a>
-                    <a class="dropdown-item" (click)="removerPessoa(pessoa.codigo)">Remover</a>
+                    <a class="dropdown-item"  >Editar</a>
+                    <a class="dropdown-item" >Remover</a>
                   </div>
                 </div>
               </td>
@@ -62,7 +62,7 @@
           </tbody>
         </table>
 
-        <div class="row" *ngIf="pessoas.length == 0">
+        <div class="row">
           <div class="col-sm-12">
             <p> Nenhum registro encontrado! </p>
           </div>
