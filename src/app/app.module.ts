@@ -41,7 +41,6 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts';
 import { FormsModule } from '@angular/forms';
-import { MaterialModule } from '@angular/material';
 
 @NgModule({
   imports: [
@@ -59,7 +58,6 @@ import { MaterialModule } from '@angular/material';
     TabsModule.forRoot(),
     ChartsModule,
     FormsModule,
-    MaterialModule,
   ],
   declarations: [
     AppComponent,
