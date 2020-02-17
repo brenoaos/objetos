@@ -1,22 +1,22 @@
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { PessoaListComponent } from './list/pessoa.list.component'
-import { PessoaFormComponent } from './form/pessoa.form.component';
+import { ObjetoListComponent } from './list/objeto.list.component'
+import { ObjetoFormComponent } from './form/objeto.form.component';
 
 const routes: Routes = [
     {
         path: '',
         data: {
-            title: 'Pessoa',
+            title: 'Objeto',
         },
-        component: PessoaListComponent,
+        component: ObjetoListComponent,
     },
     {
         path: 'form',
         data: {
-            title: 'Pessoa'
+            title: 'Objeto'
         },
-        component: PessoaFormComponent
+        component: ObjetoFormComponent
     }
 ];
 
@@ -25,9 +25,4 @@ const routes: Routes = [
     exports: [RouterModule]
 })
 
-export class PessoaRoutingModule { }
-
-
-
-
-
+export class ObjetoRoutingModule { }

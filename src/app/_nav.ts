@@ -13,7 +13,7 @@ export const navItems: INavData[] = [
   {
     name: 'Cadastro',
     url: '/cadastro',
-    icon: 'icon-file',
+    icon: 'icon-pencil',
     children: [
       {
         name: 'Objeto',
@@ -28,7 +28,7 @@ export const navItems: INavData[] = [
       {
         name: 'Caixa',
         url: '/cadastro/caixa',
-        icon: 'icon-archive'
+        icon: 'icon-briefcase'
       },
     ]
   },

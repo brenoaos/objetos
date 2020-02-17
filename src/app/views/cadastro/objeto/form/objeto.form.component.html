@@ -1,0 +1,150 @@
+<h2>Cadastro de Objeto - Form </h2>
+
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-header">
+          <strong>Objeto</strong>
+          <small>Cadastro</small>
+        </div>
+        {{form.valid}}
+        {{form.value | json }}
+        <form #form="ngForm" novalidate>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="name">Name</label>
+                  <input type="text" class="form-control" name="nome" ngModel required>
+                </div>
+              </div>
+
+              <div class="col-sm-6">
+                <label for="name">Dono</label>
+                <input list="listDono" #listaDonoInput class="form-control" name="dono" ngModel required>
+                <datalist id="listDono">
+                  <option *ngFor="let pessoa of pessoas" (keyUp)="getPessoa(listaDonoInput)">{{pessoa.codigo}} - {{pessoa.nome}}</option>
+                </datalist>
+              </div>
+            </div>
+            <!--/.row-->
+
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="name">Descrição</label>
+                  <textarea class="form-control" name="largura" ngModel required rows="5">
+                  </textarea>
+                </div>
+              </div>
+            </div>
+            <!--/.row-->
+
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label for="name">Largura</label>
+                  <input type="text" class="form-control" name="largura" ngModel required>
+                </div>
+              </div>
+
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label for="name">Altura</label>
+                  <input type="text" class="form-control" name="altura" ngModel required>
+                </div>
+              </div>
+
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label for="name">Comprimento</label>
+                  <input type="text" class="form-control" name="comprimento" ngModel required>
+                </div>
+              </div>
+            </div>
+            <!--/.row-->
+
+            <div class="row">
+
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label for="name">Peso</label>
+                  <input type="text" class="form-control" name="peso" ngModel >
+                </div>
+              </div>
+
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label for="name">Cor</label>
+                  <input type="text" class="form-control" name="cor" ngModel >
+                </div>
+              </div>
+
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label for="name">Material</label>
+                  <input type="text" class="form-control" name="material" ngModel >
+                </div>
+              </div>
+            </div> <!-- /.row-->
+            <div class="row">
+
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label for="name">Tensão</label>
+                  <input type="text" class="form-control" name="tensao" ngModel >
+                </div>
+              </div>
+
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label for="name">Validade</label>
+                  <input type="text" class="form-control" name="dataValidade">
+                </div>
+              </div>
+
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label for="name">NF-e</label>
+                  <input type="number" class="form-control" name="chaveAcessoNotaFiscal" ngModel >
+                </div>
+              </div>
+
+            </div>  <!-- /.row-->
+
+            <div class="row">
+              <div class="col-sm-2">
+                <div class="custom-control custom-switch">
+                  <input type="checkbox" class="custom-control-input" id="isDono" name="isDono" ngModel>
+                  <label class="custom-control-label" for="isDono">Dono</label>
+                </div>
+              </div>
+
+              <div class="col-sm-2">
+                <div class="custom-control custom-switch">
+                  <input type="checkbox" class="custom-control-input" id="isZelador" name="isZelador" ngModel>
+                  <label class="custom-control-label" for="isZelador">Bloqueado</label>
+                </div>
+              </div>
+
+              <div class="col-sm-2">
+                <div class="custom-control custom-switch">
+                  <input type="checkbox" class="custom-control-input" id="bloqueado" name="bloqueado" ngModel>
+                  <label class="custom-control-label" for="bloqueado">Bloqueado</label>
+                </div>
+              </div>
+            </div>
+            <!--/.row-->
+          </div>
+        </form>
+      </div>
+    </div>
+    <!--/.col-->
+  </div>
+  <!--/.row-->
+</div>
+<div>
+  <button type="button" class="btn btn-primary" [disabled]='!form.valid' (click)="salvar(form)">Salvar</button>
+  <button type="reset" class="btn btn-danger">Limpar</button>
+</div>

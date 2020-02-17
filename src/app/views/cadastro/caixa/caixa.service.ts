@@ -1,4 +1,4 @@
-import { Pessoa } from '../../../models/pessoa.model'
+import { Caixa } from '../../../models/caixa.model'
 import * as URL_API from '../../../app.api'
 import { Injectable } from '@angular/core'
 import { HttpClient, HttpParams } from '@angular/common/http';
@@ -7,29 +7,29 @@ import * as  map from 'rxjs/add/operator/map'
 import { query } from '@angular/animations';
 
 @Injectable()
-export class PessoaService {
-    url: string = `${URL_API.urlApi()}/pessoas`;
+export class CaixaService {
+    url: string = `${URL_API.urlApi()}/caixas`;
 
     constructor(private http: HttpClient) {
 
     }
 
-    getPessoas(filter?: any): Observable<any> {
+    getCaixas(filter?: any): Observable<any> {
         const params = new HttpParams()
             .set('filtro', JSON.stringify(filter))
 
-        let response = this.http.get<Pessoa[]>(this.url, {params})
+        let response = this.http.get<Caixa[]>(this.url, {params})
         return response
     }
 
-    deletePessoa(codigo: number | string): Observable<any> {
+    deleteCaixa(codigo: number | string): Observable<any> {
         const params = new HttpParams()
             .set('codigo', `${codigo}`)
         return this.http.delete(this.url + `/${codigo}`, { params });
     }
 
-    salvar(pessoa: Pessoa) {
-        return this.http.post(this.url, pessoa);
+    salvar(caixa: Caixa) {
+        return this.http.post(this.url, caixa);
     }
 
 }
