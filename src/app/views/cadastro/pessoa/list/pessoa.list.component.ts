@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { PessoaService } from '../pessoa.service';
 import { Pessoa } from '../../../../models/pessoa.model';
+import { Filter } from '../../../../core/utils'
 
 @Component({
   selector: 'app-pessoa-list',
@@ -15,13 +16,18 @@ export class PessoaListComponent implements OnInit {
   public qdeRegistro: number = 0;
   public paginacao: number = 15;
   public offset: number = 0;
-  public filter = {};
+  public filter: any;
   @ViewChild('searchComponent') searchComponent: string
 
 
   constructor(
     private servico: PessoaService
   ) {
+    this.filter = {
+      take: this.paginacao,
+      skip: this.offset,
+    }
+
   }
 
   ngOnInit() {
@@ -31,11 +37,6 @@ export class PessoaListComponent implements OnInit {
   }
 
   atualizarLista() {
-    this.filter = {
-      take: this.paginacao,
-      skip: this.offset,
-      where: {}
-    }
 
     this.servico.getPessoas(this.filter).subscribe((rest) => {
       this.pessoas = rest.registros;
@@ -45,8 +46,16 @@ export class PessoaListComponent implements OnInit {
   }
 
   pesquisaPessoa(valor) {
-
-    console.log(valor.value)
+    debugger;
+    // {"where":{"nome":"Breno"}, "take":1}
+    let salvaFiltro = this.filter;
+    if (valor.value) {
+      this.filter = {
+        nome: valor.value
+      }
+    }
+    this.atualizarLista()
+    this.filter = salvaFiltro
   }
 
   removerPessoa(codigo) {
@@ -58,7 +67,7 @@ export class PessoaListComponent implements OnInit {
     debugger;
     if ((this.offset + this.paginacao) < this.qdeRegistro) {
       this.offset = this.offset + this.paginacao;
-
+      this.filter.skip = this.offset
       this.atualizarLista();
     }
 
@@ -68,6 +77,7 @@ export class PessoaListComponent implements OnInit {
     if ((this.offset - this.paginacao) >= 0) {
       this.offset = this.offset - this.paginacao;
       if (this.offset < 0) this.offset = 0;
+      this.filter.skip = this.offset
       this.atualizarLista();
     }
   }
