@@ -1,13 +1,15 @@
-<h2>Cadastro de Pessoa - Form </h2>
+<h2>Cadastro de Caixa - Form </h2>
 
 <div class="animated fadeIn">
   <div class="row">
     <div class="col-sm-12">
       <div class="card">
         <div class="card-header">
-          <strong>Pessoa</strong>
+          <strong>Caixa</strong>
           <small>Cadastro</small>
         </div>
+        {{form.valid}}
+        {{form.value | json }}
         <form #form="ngForm" novalidate>
           <div class="card-body">
             <div class="row">

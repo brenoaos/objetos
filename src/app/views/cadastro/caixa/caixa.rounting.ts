@@ -1,22 +1,22 @@
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { PessoaListComponent } from './list/pessoa.list.component'
-import { PessoaFormComponent } from './form/pessoa.form.component';
+import { CaixaListComponent } from './list/caixa.list.component';
+import { CaixaFormComponent } from './form/caixa.form.component';
 
 const routes: Routes = [
     {
         path: '',
         data: {
-            title: 'Pessoa',
+            title: 'Caixa',
         },
-        component: PessoaListComponent,
+        component: CaixaListComponent,
     },
     {
         path: 'form',
         data: {
-            title: 'Pessoa'
+            title: 'Caixa'
         },
-        component: PessoaFormComponent
+        component: CaixaFormComponent
     }
 ];
 
@@ -25,7 +25,7 @@ const routes: Routes = [
     exports: [RouterModule]
 })
 
-export class PessoaRoutingModule { }
+export class CaixaRoutingModule { }
 
 
 

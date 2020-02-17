@@ -1,48 +1,28 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { Component, OnInit, OnDestroy, ViewChildren } from '@angular/core';
+import { FormGroup, FormBuilder, FormsModule } from '@angular/forms';
+import { PessoaService } from '../pessoa.service';
+import { Pessoa } from '../../../../models/pessoa.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-pessoa-form',
   templateUrl: './pessoa.form.component.html',
   styleUrls: ['./pessoa.form.component.scss']
 })
-export class PessoaFormComponent implements OnDestroy {
+export class PessoaFormComponent implements OnInit {
 
-  status: { isOpen: boolean } = { isOpen: false };
-  disabled: boolean = false;
-  isDropup: boolean = true;
-  autoClose: boolean = false;
+  constructor(
+    private _service: PessoaService,
+    private readonly _router: Router, ) { }
 
-  items: string[] = [
-    'The first choice!',
-    'And another choice for you.',
-    'but wait! A third!'
-  ];
+  ngOnInit() { }
 
-  constructor() { }
-
-  ngOnDestroy () {
-    this.status.isOpen = false;
-  }
-
-  onHidden(): void {
-    console.log('Dropdown is hidden');
-  }
-  onShown(): void {
-    console.log('Dropdown is shown');
-  }
-  isOpenChange(): void {
-    console.log('Dropdown state is changed');
-  }
-
-  toggleDropdown($event: MouseEvent): void {
-    $event.preventDefault();
-    $event.stopPropagation();
-    this.status.isOpen = !this.status.isOpen;
-  }
-
-  change(value: boolean): void {
-    this.status.isOpen = value;
+  salvar(form) {
+    this._service.salvar(form.value).subscribe((p: Pessoa) => {
+      if (p.codigo) {
+        this._router.navigate(['/cadastro/pessoa']);
+      }
+    });
   }
 
 }
