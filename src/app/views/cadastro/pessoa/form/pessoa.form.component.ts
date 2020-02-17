@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, ViewChildren } from '@angular/core';
 import { FormGroup, FormBuilder, FormsModule } from '@angular/forms';
 import { PessoaService } from '../pessoa.service';
 import { Pessoa } from '../../../../models/pessoa.model';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-pessoa-form',
@@ -11,11 +11,26 @@ import { Router } from '@angular/router';
 })
 export class PessoaFormComponent implements OnInit {
 
+  pessoa: Pessoa;
+
   constructor(
     private _service: PessoaService,
-    private readonly _router: Router, ) { }
+    private readonly _router: Router,
+    private readonly _activeRouter: ActivatedRoute
+  ) { }
 
-  ngOnInit() { }
+  ngOnInit(
+
+  ) {
+    this._activeRouter.params.subscribe(params => {
+      debugger;
+      const codigo = params['id'];
+      if (!isNaN(codigo)) {
+        this._service.getPessoasByID(codigo).subscribe((p: Pessoa) => {this.pessoa = p});
+      }
+    });
+
+  }
 
   salvar(form) {
     this._service.salvar(form.value).subscribe((p: Pessoa) => {

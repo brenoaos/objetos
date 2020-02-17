@@ -13,11 +13,15 @@ const routes: Routes = [
     },
     {
         path: 'form',
-        data: {
-            title: 'Pessoa'
-        },
+        data: { title: 'Pessoa' },
+        component: PessoaFormComponent
+    },
+    {
+        path: 'form/:id',
+        data: { title: 'Pessoa' },
         component: PessoaFormComponent
     }
+
 ];
 
 @NgModule({

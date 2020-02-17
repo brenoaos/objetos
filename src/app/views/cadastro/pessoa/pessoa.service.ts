@@ -22,9 +22,14 @@ export class PessoaService {
         return response
     }
 
+    getPessoasByID(codigo: number) {
+        debugger;
+        return this.http.get(this.url + '/' + codigo );
+    }
+
     deletePessoa(codigo: number | string): Observable<any> {
         const params = new HttpParams()
-            .set('codigo', `${codigo}`)
+            .set('codigo', `${codigo}`);
         return this.http.delete(this.url + `/${codigo}`, { params });
     }
 
