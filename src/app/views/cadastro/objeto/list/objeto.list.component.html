@@ -5,12 +5,12 @@
         <div class="card-header">
           <div class="row">
             <div class="col-sm-2">
-              <strong>Pessoa</strong>
+              <strong>Objetos</strong>
               <small>Listando</small>
             </div>
             <div class="col-sm-7">
               <div #searchComponent class="form-group row">
-                <input class="form-control" type="text" nome="search" id="search" (keyup)="pesquisaPessoa(searchInput)"
+                <input class="form-control" type="text" nome="search" id="search" 
                   placeholder="Insira seu criterio de busca" #searchInput>
               </div>
             </div>
@@ -26,7 +26,7 @@
           </div> <!-- /.row -->
         </div>
 
-        <table class="table" *ngIf="pessoas.length > 0">
+        <table class="table">
           <thead>
             <tr>
               <th scope="col">ID</th>
@@ -39,13 +39,13 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let pessoa of pessoas">
-              <th scope="row">{{pessoa.codigo}}</th>
-              <td>{{pessoa.nome}}</td>
-              <td>{{pessoa.sobrenome}}</td>
-              <td>{{pessoa.apelido}}</td>
-              <td>{{pessoa.isDono}}</td>
-              <td>{{pessoa.isZelador}}</td>
+            <tr >
+              <th scope="row"></th>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
               <td>
                 <div class="dropdown">
                   <a class="btn" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
@@ -62,7 +62,7 @@
           </tbody>
         </table>
 
-        <div class="row" *ngIf="pessoas.length == 0">
+        <div class="row" >
           <div class="col-sm-12">
             <p> Nenhum registro encontrado! </p>
           </div>
