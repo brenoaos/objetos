@@ -1,15 +1,14 @@
-import { Caixa } from '../../../models/caixa.model'
-import * as URL_API from '../../../app.api'
-import { Injectable } from '@angular/core'
+import { Caixa } from '../../../models/caixa.model';
+import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, } from 'rxjs';
-import * as  map from 'rxjs/add/operator/map'
-import { query } from '@angular/animations';
 import { isString } from 'util';
+import { environment } from '../../../../environments/environment';
+import { urlApi } from '../../../app.api';
 
 @Injectable()
 export class CaixaService {
-    url: string = `${URL_API.urlApi()}/caixas`;
+    url: string = `${urlApi()}/caixas`;
 
     constructor(private http: HttpClient) {
 
@@ -17,10 +16,10 @@ export class CaixaService {
 
     getCaixas(filter?: any): Observable<any> {
         const params = new HttpParams()
-            .set('filtro', JSON.stringify(filter))
+            .set('filtro', JSON.stringify(filter));
 
-        let response = this.http.get(this.url, {params})
-        return response
+        const response = this.http.get(this.url, {params});
+        return response;
     }
 
     getCaixaByID(codigo: number): Observable<any> {
@@ -28,9 +27,8 @@ export class CaixaService {
     }
 
     deleteCaixa(codigo: number | string): Observable<any> {
-        debugger;
         const params = new HttpParams()
-            .set('codigo', `${codigo}`)
+            .set('codigo', `${codigo}`);
         return this.http.delete(this.url + `/${codigo}`, { params });
     }
 
