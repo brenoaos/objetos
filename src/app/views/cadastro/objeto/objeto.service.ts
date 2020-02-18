@@ -1,14 +1,15 @@
 import { Objeto } from '../../../models/objeto.model';
-import * as URL_API from '../../../app.api';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, } from 'rxjs';
 import * as  map from 'rxjs/add/operator/map';
 import { query } from '@angular/animations';
+import { environment } from '../../../../environments/environment';
+
 
 @Injectable()
 export class ObjetoService {
-    url: string = `${URL_API.urlApi()}/objetos`;
+    url: string = `${environment.url_api}/objetos`;
 
     constructor(private http: HttpClient) {
 
