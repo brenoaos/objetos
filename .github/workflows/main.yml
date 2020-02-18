@@ -1,5 +1,5 @@
 on: pull_request
-name: Publicando Site
+name: Deploy em producao
 jobs:
   FTP-Deploy-Action:
     name: FTP-Deploy-Action
@@ -16,9 +16,6 @@ jobs:
         run: |
           npm install
           npm run build
-
-      - name: List output files
-        run: ls dist
 
       - name: FTP-Deploy-Action
         uses: SamKirkland/FTP-Deploy-Action@2.0.0
