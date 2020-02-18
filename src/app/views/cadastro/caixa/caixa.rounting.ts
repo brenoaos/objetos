@@ -13,9 +13,12 @@ const routes: Routes = [
     },
     {
         path: 'form',
-        data: {
-            title: 'Caixa'
-        },
+        data: { title: 'Caixa' },
+        component: CaixaFormComponent
+    },
+    {
+        path: 'form/:codigo',
+        data: { title: 'Caixa' },
         component: CaixaFormComponent
     }
 ];

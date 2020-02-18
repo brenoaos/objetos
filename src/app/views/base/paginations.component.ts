@@ -21,7 +21,6 @@ export class PaginationsComponent {
   currentPager: number   = 4;
 
   setPage(pageNo: number): void {
-    debugger;
     this.currentPage = pageNo;
   }
 
