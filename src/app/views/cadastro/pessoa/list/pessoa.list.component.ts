@@ -46,7 +46,6 @@ export class PessoaListComponent implements OnInit {
   }
 
   pesquisaPessoa(valor) {
-    debugger;
     // {"where":{"nome":"Breno"}, "take":1}
     let salvaFiltro = this.filter;
     if (valor.value) {
@@ -64,7 +63,6 @@ export class PessoaListComponent implements OnInit {
   }
 
   nextPage() {
-    debugger;
     if ((this.offset + this.paginacao) < this.qdeRegistro) {
       this.offset = this.offset + this.paginacao;
       this.filter.skip = this.offset

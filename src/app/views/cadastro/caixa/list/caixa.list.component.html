@@ -10,7 +10,7 @@
             </div>
             <div class="col-sm-7">
               <div #searchComponent class="form-group row">
-                <input class="form-control" type="text" nome="search" id="search" 
+                <input class="form-control" type="text" nome="search" id="search"
                   placeholder="Insira seu criterio de busca" #searchInput>
               </div>
             </div>
@@ -18,7 +18,7 @@
               <button type="button" class="btn btn-primary btn-round" (click)="atualizarLista()">
                 <i class="icon-reload icons"></i>
               </button>
-              <a type="button" class="btn btn-primary btn-round" [routerLink]="['form']" >
+              <a type="button" class="btn btn-primary btn-round" [routerLink]="['form']">
                 <i class="icon-plus icons"></i>
                 Novo
               </a>
@@ -26,26 +26,22 @@
           </div> <!-- /.row -->
         </div>
 
-        <table class="table" >
+        <table class="table" *ngIf="caixas.length > 0">
           <thead>
             <tr>
               <th scope="col">ID</th>
-              <th scope="col">Nome</th>
-              <th scope="col">Sobrenome</th>
-              <th scope="col">Apelido</th>
-              <th scope="col">Dono</th>
-              <th scope="col">Zelador</th>
+              <th scope="col">Tipo</th>
+              <th scope="col">cor</th>
+              <th scope="col">local</th>
               <th scope="col">Opções</th>
             </tr>
           </thead>
           <tbody>
-            <tr >
-              <th scope="row"></th>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
+            <tr *ngFor="let caixa of caixas">
+              <th scope="row">{{caixa.codigo}}</th>
+              <td>{{caixa.tipo}}</td>
+              <td>{{caixa.cor}}</td>
+              <td>{{caixa.local}}</td>
               <td>
                 <div class="dropdown">
                   <a class="btn" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
@@ -53,8 +49,8 @@
                     <i class="cui-options icons"></i>
                   </a>
                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item"  >Editar</a>
-                    <a class="dropdown-item" >Remover</a>
+                    <a class="dropdown-item" [routerLink]="['form', caixa.codigo]">Editar</a>
+                    <a class="dropdown-item" (click)="removerCaixa(caixa.codigo)" (click)="myModal.show()">Remover</a>
                   </div>
                 </div>
               </td>
@@ -62,11 +58,33 @@
           </tbody>
         </table>
 
-        <div class="row">
+        <div class="row" *ngIf="caixas.length == 0">
           <div class="col-sm-12">
-            <p> Nenhum registro encontrado! </p>
+            <h3 class="text-center"> Nenhum registro encontrado! </h3>
           </div>
         </div>
+
+        <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+          aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">Confirma a exclusão?</h4>
+                <button type="button" class="close" (click)="myModal.hide()" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                Você deseja realmente excluir?
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="myModal.hide()">Cancelar</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
       </div>
     </div>
     <!--/.col-->
@@ -76,8 +94,8 @@
 
 <nav #navegation class="left" aria-label="...">
   <ul class="pagination">
-    <li class="page-item" >
-      <button (disabled)="offset == 0" class="page-link" (click)="prevPage()">Retornar</button >
+    <li class="page-item">
+      <button (disabled)="offset == 0" class="page-link" (click)="prevPage()">Retornar</button>
     </li>
     <li class="page-item"><a class="page-link" href="#">1</a></li>
     <li class="page-item active" aria-current="page">

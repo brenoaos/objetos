@@ -17,7 +17,7 @@ const routes: Routes = [
         component: PessoaFormComponent
     },
     {
-        path: 'form/:id',
+        path: 'form/:codigo',
         data: { title: 'Pessoa' },
         component: PessoaFormComponent
     }

@@ -45,7 +45,6 @@ export class ObjetoFormComponent implements OnInit {
     }
 
     this._pessoaService.getPessoas(filter).subscribe((p) => {
-      debugger;
       this.pessoas = p.registros;
     });
   }

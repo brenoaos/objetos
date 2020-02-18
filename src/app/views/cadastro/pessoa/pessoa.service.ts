@@ -23,7 +23,6 @@ export class PessoaService {
     }
 
     getPessoasByID(codigo: number) {
-        debugger;
         return this.http.get(this.url + '/' + codigo );
     }
 
