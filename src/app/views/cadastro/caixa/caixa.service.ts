@@ -4,10 +4,11 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, } from 'rxjs';
 import { isString } from 'util';
 import { environment } from '../../../../environments/environment';
+import { urlApi } from '../../../app.api';
 
 @Injectable()
 export class CaixaService {
-    url: string = `${environment.url_api}/caixas`;
+    url: string = `${urlApi()}/caixas`;
 
     constructor(private http: HttpClient) {
 

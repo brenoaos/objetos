@@ -2,11 +2,11 @@ import { Pessoa } from '../../../models/pessoa.model';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, } from 'rxjs';
-import { environment } from '../../../../environments/environment';
+import { urlApi } from '../../../app.api';
 
 @Injectable()
 export class PessoaService {
-    url: string = `${environment.url_api}/pessoas`;
+    url: string = `${urlApi()}/pessoas`;
 
     constructor(private http: HttpClient) {
 
