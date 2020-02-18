@@ -26,7 +26,7 @@ export class PessoaFormComponent implements OnInit {
     this._activeRouter.params.subscribe(params => {
       
       
-      const codigo = params['id'];
+      const codigo = params['codigo'];
       if (!isNaN(codigo)) {
         this._service.getPessoasByID(codigo).subscribe((p) => {
           this.form.setValue(p);

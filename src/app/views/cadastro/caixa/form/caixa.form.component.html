@@ -1,5 +1,3 @@
-<h2>Cadastro de Caixa - Form </h2>
-
 <div class="animated fadeIn">
   <div class="row">
     <div class="col-sm-12">
@@ -8,73 +6,72 @@
           <strong>Caixa</strong>
           <small>Cadastro</small>
         </div>
-        {{form.valid}}
-        {{form.value | json }}
         <form #form="ngForm" novalidate>
           <div class="card-body">
             <div class="row">
-              <div class="col-sm-6">
+              <div class="col-sm-4">
                 <div class="form-group">
-                  <label for="name">Name</label>
-                  <input type="text" class="form-control" name="nome" ngModel required>
-                </div>
-              </div>
-
-              <div class="col-sm-6">
-                <div class="form-group">
-                  <label for="name">Sobrenome</label>
-                  <input type="text" class="form-control" name="sobrenome" ngModel required>
-                </div>
-              </div>
-
-
-            </div>
-            <!--/.row-->
-
-
-            <div class="row">
-              <div class="col-sm-6">
-                <div class="form-group">
-                  <label for="name">Apelido</label>
-                  <input type="text" class="form-control" name="apelido" ngModel required>
-                </div>
-              </div>
-
-              <div class="col-sm-6">
-                <div class="form-group">
-                  <label for="name">Sexo</label>
-                  <select class="form-control" name="sexo" ngModel>
-                    <option value="1">Masculino</option>
-                    <option value="2">Feminino</option>
+                  <label for="tipo">Tipo</label>
+                  <select name="tipo" id="tipo" class="form-control" ngModel required>
+                    <option value="0">Organizadora</option>
                   </select>
                 </div>
               </div>
 
-            </div> <!-- /.row-->
 
-            <div class="row">
-              <div class="col-sm-2">
-                <div class="custom-control custom-switch">
-                  <input type="checkbox" class="custom-control-input" id="isDono" name="isDono" ngModel>
-                  <label class="custom-control-label" for="isDono">Dono</label>
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label for="cor">Cor</label>
+                  <select name="cor" class="form-control" ngModel required>
+                    <option value="0">Azul</option>
+                  </select>
                 </div>
               </div>
 
-              <div class="col-sm-2">
-                <div class="custom-control custom-switch">
-                  <input type="checkbox" class="custom-control-input" id="isZelador" name="isZelador" ngModel>
-                  <label class="custom-control-label" for="isZelador">Bloqueado</label>
+
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label for="name">Local</label>
+                  <input type="text" name="local" class="form-control" ngModel required />
                 </div>
               </div>
 
-              <div class="col-sm-2">
-                <div class="custom-control custom-switch">
-                  <input type="checkbox" class="custom-control-input" id="bloqueado" name="bloqueado" ngModel>
-                  <label class="custom-control-label" for="bloqueado">Bloqueado</label>
-                </div>
-              </div>
             </div>
             <!--/.row-->
+
+
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label for="name">Altura</label>
+                  <input type="number" class="form-control" name="altura" ngModel>
+                </div>
+              </div>
+
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label for="name">Largura</label>
+                  <input type="number" class="form-control" name="largura" ngModel />
+                </div>
+              </div>
+
+
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label for="name">Comprimento</label>
+                  <input type="number" class="form-control" name="comprimento" ngModel />
+                </div>
+              </div>
+
+            </div> <!-- /.row-->
+            <div class="row">
+              <div class="col-sm-12">
+                <label>Observacao</label>
+                <textarea class="form-control" name="observacao" ngModel ></textarea>
+              </div>
+            </div> <!-- /.row-->
+            <input type="hidden" name="codigo" #codigoInput ngModel>
+            <input type="hidden" name="caixaCodigo" ngModel>
           </div>
         </form>
       </div>
@@ -84,6 +81,7 @@
   <!--/.row-->
 </div>
 <div>
-  <button type="button" class="btn btn-primary" [disabled]='!form.valid' (click)="salvar(form)" >Salvar</button>
-  <button type="reset" class="btn btn-danger" >Limpar</button>
+  <button type="button" class="btn btn-primary" [disabled]='!form.valid' (click)="salvar(form)">Salvar</button>
+  <a type="reset" class="btn border-primary" [routerLink]="['/cadastro', 'caixa']" >Voltar</a>
+  <button type="reset" class="btn btn-danger" [disabled]="codigoInput.value == 0" (click)="delete(codigoInput.value)" >Excluir</button>
 </div>
