@@ -13,7 +13,8 @@ import { ModalDirective } from 'ngx-bootstrap';
 })
 export class CaixaFormComponent implements OnInit {
   @ViewChild('form') form: NgForm
-
+  @ViewChild('myModal') public myModal: ModalDirective;
+  alertMensagem:string;
   constructor(
     private _service: CaixaService,
     private readonly _router: Router,
@@ -36,7 +37,12 @@ export class CaixaFormComponent implements OnInit {
       if (p.codigo) {
         this._router.navigate(['/cadastro/caixa']);
       }
-    });
+    }, err => 
+    {
+      this.alertMensagem = err.message;
+      this.myModal.show()
+    }
+    );
   }
 
   delete(codigo) {

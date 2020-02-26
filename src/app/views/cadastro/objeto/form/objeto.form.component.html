@@ -8,11 +8,10 @@
           <strong>Objeto</strong>
           <small>Cadastro</small>
         </div>
-        {{form.valid}}
-        {{form.value | json }}
         <form #form="ngForm" novalidate>
           <div class="card-body">
             <div class="row">
+              <input type="hidden" #codigoInput name="codigo" ngModel>
               <div class="col-sm-6">
                 <div class="form-group">
                   <label for="name">Name</label>
@@ -22,9 +21,9 @@
 
               <div class="col-sm-6">
                 <label for="name">Dono</label>
-                <input list="listDono" #listaDonoInput class="form-control" name="dono" ngModel required>
+                <input list="listDono" #listaDonoInput class="form-control" name="dono" ngModel  required (keyup)="getPessoas(listaDonoInput)">
                 <datalist id="listDono">
-                  <option value=""></option>
+                  <option (value)="pessoa.nome" *ngFor="let pessoa of pessoas">{{pessoa.codigo}} |  {{pessoa.nome}}</option>
                 </datalist>
               </div>
             </div>
@@ -146,5 +145,6 @@
 </div>
 <div>
   <button type="button" class="btn btn-primary" [disabled]='!form.valid' (click)="salvar(form)">Salvar</button>
-  <button type="reset" class="btn btn-danger">Limpar</button>
+  <a type="reset" class="btn border-primary" [routerLink]="['/cadastro', 'objeto']" >Voltar</a>
+  <button type="reset" class="btn btn-danger" [disabled]="codigoInput.value == 0" (click)="delete(codigoInput.value)" >Excluir</button>
 </div>

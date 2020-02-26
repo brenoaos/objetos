@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ɵisListLikeIterable } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { PessoaService } from '../pessoa.service';
 import { Pessoa } from '../../../../models/pessoa.model';
@@ -37,7 +37,7 @@ export class PessoaListComponent implements OnInit {
   }
 
   atualizarLista() {
-
+    debugger;
     this.servico.getPessoas(this.filter).subscribe((rest) => {
       this.pessoas = rest.registros;
       this.paginas = rest.quantidadeTotal / this.paginacao;
@@ -50,11 +50,14 @@ export class PessoaListComponent implements OnInit {
     let salvaFiltro = this.filter;
     if (valor.value) {
       this.filter = {
-        nome: valor.value
+        like: [
+          { nome: valor.value },
+          {sobrenome: valor.value}
+        ]
       }
+      this.atualizarLista()
+      this.filter = salvaFiltro
     }
-    this.atualizarLista()
-    this.filter = salvaFiltro
   }
 
   removerPessoa(codigo) {

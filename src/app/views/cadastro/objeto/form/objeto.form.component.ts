@@ -34,17 +34,21 @@ export class ObjetoFormComponent implements OnInit {
   }
 
   getPessoas(formInput?: any) {
-
+    debugger;
     let filter = {};
 
     if (formInput) {
       filter = {
-        'nome': formInput.value,
-        'sobrenome': formInput.value
+        like: [
+          {'nome': formInput.value},
+          {'sobrenome': formInput.value},
+        ],
+        'isDono': true
       };
     }
 
     this._pessoaService.getPessoas(filter).subscribe((p) => {
+      debugger;
       this.pessoas = p.registros;
     });
   }
