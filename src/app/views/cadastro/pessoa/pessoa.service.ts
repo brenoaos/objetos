@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, } from 'rxjs';
 import { urlApi } from '../../../app.api';
+import { isString } from 'util';
 
 @Injectable()
 export class PessoaService {
@@ -31,7 +32,7 @@ export class PessoaService {
     }
 
     salvar(pessoa: Pessoa) {
-        if (isNaN(pessoa.codigo)) {
+        if (isNaN(pessoa.codigo) || isString(pessoa.codigo)){
             return this.http.post(this.url, pessoa);
         }
 

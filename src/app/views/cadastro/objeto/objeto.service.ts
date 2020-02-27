@@ -23,6 +23,11 @@ export class ObjetoService {
         return response;
     }
 
+    getObjetosById(codigo: number): Observable<any> {
+        debugger;
+        return this.http.get<Objeto>(this.url + '/' + codigo);
+    }
+
     deleteObjeto(codigo: number | string): Observable<any> {
         const params = new HttpParams()
             .set('codigo', `${codigo}`);

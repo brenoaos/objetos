@@ -10,7 +10,7 @@
             </div>
             <div class="col-sm-7">
               <div #searchComponent class="form-group row">
-                <input class="form-control" type="text" nome="search" id="search" 
+                <input class="form-control" type="text" nome="search" id="search"
                   placeholder="Insira seu criterio de busca" #searchInput>
               </div>
             </div>
@@ -18,7 +18,7 @@
               <button type="button" class="btn btn-primary btn-round" (click)="atualizarLista()">
                 <i class="icon-reload icons"></i>
               </button>
-              <a type="button" class="btn btn-primary btn-round" [routerLink]="['form']" >
+              <a type="button" class="btn btn-primary btn-round" [routerLink]="['form']">
                 <i class="icon-plus icons"></i>
                 Novo
               </a>
@@ -31,21 +31,17 @@
             <tr>
               <th scope="col">ID</th>
               <th scope="col">Nome</th>
-              <th scope="col">Sobrenome</th>
-              <th scope="col">Apelido</th>
               <th scope="col">Dono</th>
-              <th scope="col">Zelador</th>
+              <th scope="col">Status</th>
               <th scope="col">Opções</th>
             </tr>
           </thead>
           <tbody>
-            <tr >
-              <th scope="row"></th>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
+            <tr *ngFor="let objeto of objetos">
+              <th scope="row">{{objeto.codigo}}</th>
+              <td>{{objeto.nome}}</td>
+              <td>{{objeto.dono.apelido}}</td>
+              <td>status</td>
               <td>
                 <div class="dropdown">
                   <a class="btn" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
@@ -53,8 +49,8 @@
                     <i class="cui-options icons"></i>
                   </a>
                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" >Editar</a>
-                    <a class="dropdown-item" >Remover</a>
+                    <a class="dropdown-item" [routerLink]="['form', objeto.codigo]">Editar</a>
+                    <a class="dropdown-item" (click)="removerObjeto(objeto.codigo)">Remover</a>
                   </div>
                 </div>
               </td>
@@ -76,8 +72,8 @@
 
 <nav #navegation class="left" aria-label="...">
   <ul class="pagination">
-    <li class="page-item" >
-      <button (disabled)="offset == 0" class="page-link" (click)="prevPage()">Retornar</button >
+    <li class="page-item">
+      <button (disabled)="offset == 0" class="page-link" (click)="prevPage()">Retornar</button>
     </li>
     <li class="page-item"><a class="page-link" href="#">1</a></li>
     <li class="page-item active" aria-current="page">

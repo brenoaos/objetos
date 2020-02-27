@@ -21,7 +21,7 @@
 
               <div class="col-sm-6">
                 <label for="name">Dono</label>
-                <input list="listDono" #listaDonoInput class="form-control" name="dono" ngModel  required (keyup)="getPessoas(listaDonoInput)">
+                <input list="listDono" #listaDonoInput class="form-control" name="donoCodigo" ngModel  required (keyup)="getPessoas(listaDonoInput)">
                 <datalist id="listDono">
                   <option (value)="pessoa.nome" *ngFor="let pessoa of pessoas">{{pessoa.codigo}} |  {{pessoa.nome}}</option>
                 </datalist>
@@ -33,7 +33,7 @@
               <div class="col-sm-12">
                 <div class="form-group">
                   <label for="name">Descrição</label>
-                  <textarea class="form-control" name="largura" ngModel required rows="5">
+                  <textarea class="form-control" name="descricao" ngModel required rows="5">
                   </textarea>
                 </div>
               </div>
@@ -44,21 +44,21 @@
               <div class="col-sm-4">
                 <div class="form-group">
                   <label for="name">Largura</label>
-                  <input type="text" class="form-control" name="largura" ngModel required>
+                  <input type="text" class="form-control" name="largura" ngModel>
                 </div>
               </div>
 
               <div class="col-sm-4">
                 <div class="form-group">
                   <label for="name">Altura</label>
-                  <input type="text" class="form-control" name="altura" ngModel required>
+                  <input type="text" class="form-control" name="altura" ngModel>
                 </div>
               </div>
 
               <div class="col-sm-4">
                 <div class="form-group">
                   <label for="name">Comprimento</label>
-                  <input type="text" class="form-control" name="comprimento" ngModel required>
+                  <input type="text" class="form-control" name="comprimento" ngModel>
                 </div>
               </div>
             </div>

@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { ObjetoService } from '../objeto.service';
 import { Objeto } from '../../../../models/objeto.model';
 import { Filter } from '../../../../core/utils';
+import { PessoaService } from '../../pessoa/pessoa.service';
 
 @Component({
   selector: 'app-objeto-list',
@@ -20,7 +21,8 @@ export class ObjetoListComponent implements OnInit {
   @ViewChild('searchComponent') searchComponent: string;
 
   constructor(
-    private servico: ObjetoService
+    private servico: ObjetoService,
+    private pessoaService: PessoaService
   ) {
     this.filter = {
       take: this.paginacao,
@@ -41,6 +43,9 @@ export class ObjetoListComponent implements OnInit {
       this.objetos = rest.registros;
       this.paginas = rest.quantidadeTotal / this.paginacao;
       this.qdeRegistro = rest.quantidadeTotal;
+      this.objetos.forEach(o => {
+        this.pessoaService.getPessoasByID(o.donoCodigo).subscribe(p => o['dono'] = p);
+      })
     });
   }
 
