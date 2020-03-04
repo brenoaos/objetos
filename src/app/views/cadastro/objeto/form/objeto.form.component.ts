@@ -22,7 +22,6 @@ export class ObjetoFormComponent implements OnInit {
     private readonly _router: Router,
     private readonly _pessoaService: PessoaService,
     private readonly _activeRouter: ActivatedRoute,
-    private readonly _formBuilder: FormBuilder,
   ) { }
 
   ngOnInit() {
