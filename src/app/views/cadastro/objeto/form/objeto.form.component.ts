@@ -14,8 +14,8 @@ import { stringify } from 'querystring';
   styleUrls: ['./objeto.form.component.scss']
 })
 export class ObjetoFormComponent implements OnInit {
-  private pessoas: Pessoa[];
-  @ViewChild('form') form;
+  pessoas: Pessoa[];
+  @ViewChild('form') form: NgForm;
 
   constructor(
     private _service: ObjetoService,
@@ -36,11 +36,7 @@ export class ObjetoFormComponent implements OnInit {
           this.form.setValue(p);
         });
       }
-      else {
-        this.form = this._formBuilder({
-          codigo: ['', Validators.required],
-        })
-      }
+      this.form.reset()
     });
 
 
@@ -62,17 +58,20 @@ export class ObjetoFormComponent implements OnInit {
     if (formInput) {
       filter = {
         like: [
-          {'nome': formInput.value},
-          {'sobrenome': formInput.value},
+          { 'nome': formInput.value },
+          { 'sobrenome': formInput.value },
         ],
         'isDono': true
       };
     }
-
     this._pessoaService.getPessoas(filter).subscribe((p) => {
       debugger;
       this.pessoas = p.registros;
     });
+  }
+
+  delete(codigo: number): void {
+    this._service.deleteObjeto(codigo).subscribe();
   }
 
 }
