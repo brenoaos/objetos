@@ -10,7 +10,7 @@
             </div>
             <div class="col-sm-7">
               <div #searchComponent class="form-group row">
-                <input class="form-control" type="text" nome="search" id="search" (keyup)="pesquisaPessoa(searchInput)"
+                <input class="form-control" type="text" nome="search" id="search" (change)="pesquisaPessoa(searchInput)"
                   placeholder="Insira seu criterio de busca" #searchInput >
               </div>
             </div>
@@ -64,7 +64,7 @@
 
         <div class="row" *ngIf="pessoas.length == 0">
           <div class="col-sm-12">
-            <p> Nenhum registro encontrado! </p>
+            <h3 class="text-center"> Nenhum registro encontrado! </h3>
           </div>
         </div>
       </div>

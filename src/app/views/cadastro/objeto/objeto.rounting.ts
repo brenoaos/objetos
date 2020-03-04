@@ -17,6 +17,13 @@ const routes: Routes = [
             title: 'Objeto'
         },
         component: ObjetoFormComponent
+    },
+    {
+        path: 'form/:codigo',
+        data: {
+            title: 'Objeto'
+        },
+        component: ObjetoFormComponent
     }
 ];
 

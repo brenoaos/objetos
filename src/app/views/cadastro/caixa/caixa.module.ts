@@ -6,13 +6,16 @@ import { CaixaListComponent } from './list/caixa.list.component';
 import { CaixaFormComponent } from './form/caixa.form.component';
 import { CaixaService } from './caixa.service'
 import { HttpClientModule } from '@angular/common/http';
+import { ModalModule } from 'ngx-bootstrap';
 
 @NgModule({
   imports: [
     CommonModule,
     CaixaRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ModalModule,
+    ModalModule.forRoot(),
   ],
   declarations: [
     CaixaListComponent,

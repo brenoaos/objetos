@@ -12,9 +12,10 @@
               <div class="col-sm-4">
                 <div class="form-group">
                   <label for="tipo">Tipo</label>
-                  <select name="tipo" id="tipo" class="form-control" ngModel required>
-                    <option value="0">Organizadora</option>
-                  </select>
+                    <input list="tipoCaixa" #listaDonoInput class="form-control" name="tipo" ngModel required placeholder="Pesquisar...">
+                    <datalist id="tipoCaixa">
+                      <option value="Organizadora">
+                    </datalist>
                 </div>
               </div>
 
@@ -22,9 +23,10 @@
               <div class="col-sm-4">
                 <div class="form-group">
                   <label for="cor">Cor</label>
-                  <select name="cor" class="form-control" ngModel required>
-                    <option value="0">Azul</option>
-                  </select>
+                  <input list="cor" #listaDonoInput class="form-control" name="cor" ngModel required placeholder="Pesquisar...">
+                  <datalist id="cor">
+                    <option value="Azul">01 - Azul</option>
+                  </datalist>
                 </div>
               </div>
 
@@ -85,3 +87,27 @@
   <a type="reset" class="btn border-primary" [routerLink]="['/cadastro', 'caixa']" >Voltar</a>
   <button type="reset" class="btn btn-danger" [disabled]="codigoInput.value == 0" (click)="delete(codigoInput.value)" >Excluir</button>
 </div>
+
+
+
+
+<div bsModal #myModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Modal title</h4>
+        <button type="button" class="close" (click)="myModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>{{alertMensagem}}&hellip;</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="myModal.hide()">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+

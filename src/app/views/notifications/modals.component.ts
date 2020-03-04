@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, ViewChild, Input} from '@angular/core';
 import {ModalDirective} from 'ngx-bootstrap/modal';
 
 @Component({
@@ -13,4 +13,10 @@ export class ModalsComponent {
   @ViewChild('warningModal') public warningModal: ModalDirective;
   @ViewChild('dangerModal') public dangerModal: ModalDirective;
   @ViewChild('infoModal') public infoModal: ModalDirective;
+
+  @Input('mensagem') mensagem: string;
+
+  constructor(){
+    this.myModal.show();
+  }
 }
