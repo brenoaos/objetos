@@ -8,23 +8,16 @@
           <strong>Objeto</strong>
           <small>Cadastro</small>
         </div>
-        <form #form="ngForm" novalidate>
+        {{myForm.value | json}}
+        <form [formGroup]="myForm" novalidate>
           <div class="card-body">
             <div class="row">
-              <input type="hidden" #codigoInput name="codigo" ngModel>
+
               <div class="col-sm-6">
                 <div class="form-group">
                   <label for="name">Name</label>
-                  <input type="text" class="form-control" name="nome" ngModel required>
+                  <input type="text" class="form-control" formControlName="nome">
                 </div>
-              </div>
-
-              <div class="col-sm-6">
-                <label for="name">Dono</label>
-                <input list="listDono" #listaDonoInput class="form-control" name="donoCodigo" ngModel  required (keyup)="getPessoas(listaDonoInput)">
-                <datalist id="listDono">
-                  <option (value)="pessoa.nome" *ngFor="let pessoa of pessoas">{{pessoa.codigo}} |  {{pessoa.nome}}</option>
-                </datalist>
               </div>
             </div>
             <!--/.row-->
@@ -33,9 +26,27 @@
               <div class="col-sm-12">
                 <div class="form-group">
                   <label for="name">Descrição</label>
-                  <textarea class="form-control" name="descricao" ngModel required rows="5">
+                  <textarea class="form-control" formControlName="descricao" rows="5">
                   </textarea>
                 </div>
+              </div>
+            </div>
+            <!--/.row-->
+            <div class="row">
+              <div class="col-sm-6">
+                <label for="name">Dono</label>
+                <input list="listDono" #listaDonoInput class="form-control" formControlName="dono" (keyup)="getPessoas(listaDonoInput)" (value)="pessoa" autocomplete="false" >
+                <datalist id="listDono">
+                  <option *ngFor="let pessoa of pessoas" (value)="pessoa.nome">{{pessoa.codigo}} | {{pessoa.nome}} {{pessoa.sobrenome}} </option>
+                </datalist>
+              </div>
+
+              <div class="col-sm-6">
+                <label for="name">Dono</label>
+                <input list="listDono" #listaDonoInput class="form-control" formControlName="zelador" (keyup)="getPessoas(listaDonoInput)" autocomplete="false" >
+                <datalist id="listDono">
+                  <option *ngFor="let pessoa of pessoas" >{{pessoa.codigo}} | {{pessoa.nome}} {{pessoa.sobrenome}} </option>
+                </datalist>
               </div>
             </div>
             <!--/.row-->
@@ -44,21 +55,21 @@
               <div class="col-sm-4">
                 <div class="form-group">
                   <label for="name">Largura</label>
-                  <input type="text" class="form-control" name="largura" ngModel>
+                  <input type="text" class="form-control" formControlName="largura">
                 </div>
               </div>
 
               <div class="col-sm-4">
                 <div class="form-group">
                   <label for="name">Altura</label>
-                  <input type="text" class="form-control" name="altura" ngModel>
+                  <input type="text" class="form-control" formControlName="altura">
                 </div>
               </div>
 
               <div class="col-sm-4">
                 <div class="form-group">
                   <label for="name">Comprimento</label>
-                  <input type="text" class="form-control" name="comprimento" ngModel>
+                  <input type="text" class="form-control" formControlName="comprimento">
                 </div>
               </div>
             </div>
@@ -69,21 +80,21 @@
               <div class="col-sm-4">
                 <div class="form-group">
                   <label for="name">Peso</label>
-                  <input type="text" class="form-control" name="peso" ngModel >
+                  <input type="text" class="form-control" formControlName="peso" >
                 </div>
               </div>
 
               <div class="col-sm-4">
                 <div class="form-group">
                   <label for="name">Cor</label>
-                  <input type="text" class="form-control" name="cor" ngModel >
+                  <input type="text" class="form-control" formControlName="cor" >
                 </div>
               </div>
 
               <div class="col-sm-4">
                 <div class="form-group">
                   <label for="name">Material</label>
-                  <input type="text" class="form-control" name="material" ngModel >
+                  <input type="text" class="form-control" formControlName="material" >
                 </div>
               </div>
             </div> <!-- /.row-->
@@ -92,49 +103,25 @@
               <div class="col-sm-4">
                 <div class="form-group">
                   <label for="name">Tensão</label>
-                  <input type="text" class="form-control" name="tensao" ngModel >
+                  <input type="text" class="form-control" formControlName="tensao" >
                 </div>
               </div>
 
               <div class="col-sm-4">
                 <div class="form-group">
                   <label for="name">Validade</label>
-                  <input type="text" class="form-control" name="dataValidade">
+                  <input type="text" class="form-control" formControlName="dataValidade">
                 </div>
               </div>
 
               <div class="col-sm-4">
                 <div class="form-group">
                   <label for="name">NF-e</label>
-                  <input type="number" class="form-control" name="chaveAcessoNotaFiscal" ngModel >
+                  <input type="number" class="form-control" formControlName="chaveAcessoNotaFiscal" >
                 </div>
               </div>
 
             </div>  <!-- /.row-->
-
-            <div class="row">
-              <div class="col-sm-2">
-                <div class="custom-control custom-switch">
-                  <input type="checkbox" class="custom-control-input" id="isDono" name="isDono" ngModel>
-                  <label class="custom-control-label" for="isDono">Dono</label>
-                </div>
-              </div>
-
-              <div class="col-sm-2">
-                <div class="custom-control custom-switch">
-                  <input type="checkbox" class="custom-control-input" id="isZelador" name="isZelador" ngModel>
-                  <label class="custom-control-label" for="isZelador">Bloqueado</label>
-                </div>
-              </div>
-
-              <div class="col-sm-2">
-                <div class="custom-control custom-switch">
-                  <input type="checkbox" class="custom-control-input" id="bloqueado" name="bloqueado" ngModel>
-                  <label class="custom-control-label" for="bloqueado">Bloqueado</label>
-                </div>
-              </div>
-            </div>
-            <!--/.row-->
           </div>
         </form>
       </div>
@@ -144,7 +131,7 @@
   <!--/.row-->
 </div>
 <div>
-  <button type="button" class="btn btn-primary" [disabled]='!form.valid' (click)="salvar(form)">Salvar</button>
+  <button type="button" class="btn btn-primary" [disabled]='!myForm.valid' (click)="salvar()">Salvar</button>
   <a type="reset" class="btn border-primary" [routerLink]="['/cadastro', 'objeto']" >Voltar</a>
-  <button type="reset" class="btn btn-danger" [disabled]="codigoInput.value == 0" (click)="delete(codigoInput.value)" >Excluir</button>
+  <button type="reset" class="btn btn-danger" [disabled]="this.myForm.value.codigo == 0" (click)="delete()" >Excluir</button>
 </div>
