@@ -39,8 +39,8 @@ export class ObjetoFormComponent implements OnInit {
       cor: ['', []],
       material: ['', []],
       tensao: [0, []],
-      dono: [null, [Validators.required]],
-      zelador: [null, []],
+      donoCodigo: [null, [Validators.required]],
+      zeladorCodigo: [null, []],
       dataValidade: [null, []],
       chaveAcessoNotaFiscal: ['', []],
       observacao: ['', []]
@@ -76,6 +76,7 @@ export class ObjetoFormComponent implements OnInit {
           { 'nome': formInput.value },
           { 'sobrenome': formInput.value },
         ],
+        where: [{"codigo": this.myForm.value.codigo}],
         'isDono': true
       };
     }
@@ -85,8 +86,10 @@ export class ObjetoFormComponent implements OnInit {
     });
   }
 
-  delete(codigo: number): void {
+  delete(codigo?: number): void {
+    if(!codigo) codigo = this.myForm.value.codigo;    
     this._service.deleteObjeto(codigo).subscribe();
   }
 
+  
 }
