@@ -35,15 +35,15 @@
             <div class="row">
               <div class="col-sm-6">
                 <label for="name">Dono</label>
-                <input list="listDono" #listaDonoInput class="form-control" formControlName="dono" (keyup)="getPessoas(listaDonoInput)" (value)="pessoa" autocomplete="false" >
+                <input list="listDono" #listaDonoInput class="form-control" formControlName="donoCodigo" (keyup)="getPessoas(listaDonoInput)" autocomplete="false" >
                 <datalist id="listDono">
-                  <option *ngFor="let pessoa of pessoas" (value)="pessoa.nome">{{pessoa.codigo}} | {{pessoa.nome}} {{pessoa.sobrenome}} </option>
+                  <option *ngFor="let pessoa of pessoas">{{pessoa.codigo}} | {{pessoa.nome}} {{pessoa.sobrenome}} </option>
                 </datalist>
               </div>
 
               <div class="col-sm-6">
                 <label for="name">Dono</label>
-                <input list="listDono" #listaDonoInput class="form-control" formControlName="zelador" (keyup)="getPessoas(listaDonoInput)" autocomplete="false" >
+                <input list="listDono" #listaDonoInput class="form-control" formControlName="zeladorCodigo" (keyup)="getPessoas(listaDonoInput)" autocomplete="false" >
                 <datalist id="listDono">
                   <option *ngFor="let pessoa of pessoas" >{{pessoa.codigo}} | {{pessoa.nome}} {{pessoa.sobrenome}} </option>
                 </datalist>
