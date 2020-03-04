@@ -35,6 +35,7 @@ export class ObjetoService {
     }
 
     salvar(objeto: Objeto) {
+        debugger
         return this.http.post(this.url, objeto);
     }
 

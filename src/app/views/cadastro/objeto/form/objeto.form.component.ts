@@ -17,33 +17,49 @@ export class ObjetoFormComponent implements OnInit {
   pessoas: Pessoa[];
   @ViewChild('form') form: NgForm;
 
+  myForm: FormGroup;
+
   constructor(
     private _service: ObjetoService,
     private readonly _router: Router,
     private readonly _pessoaService: PessoaService,
     private readonly _activeRouter: ActivatedRoute,
+    private readonly _formBuilder: FormBuilder
   ) { }
 
   ngOnInit() {
+    this.myForm = this._formBuilder.group({
+      codigo: [0, []],
+      nome: ['', [Validators.required]],
+      descricao: ['', [Validators.required]],
+      altura:[0.00, []],
+      largura:[0.00, []],
+      comprimento:[0.00, []],
+      peso:[0.00, []],
+      cor: ['', []],
+      material: ['', []],
+      tensao: [0, []],
+      dono: [null, [Validators.required]],
+      zelador: [null, []],
+      dataValidade: [null, []],
+      chaveAcessoNotaFiscal: ['', []],
+      observacao: ['', []]
+    })
+
+
     this._activeRouter.params.subscribe(params => {
-      debugger;
       const codigo = params['codigo'];
       if (!isNaN(codigo)) {
         this._service.getObjetosById(codigo).subscribe((p) => {
           console.log(JSON.stringify(p))
-          debugger;
-          this.form.setValue(p);
+          this.myForm.setValue(p);
         });
       }
-      this.form.reset()
     });
-
-
-
   }
 
-  salvar(form) {
-    this._service.salvar(form.value).subscribe((p: Objeto) => {
+  salvar() {
+    this._service.salvar(this.myForm.value).subscribe((p: Objeto) => {
       if (p.codigo) {
         this._router.navigate(['/cadastro/objeto']);
       }

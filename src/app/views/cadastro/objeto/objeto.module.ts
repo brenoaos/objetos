@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ObjetoRoutingModule } from './objeto.rounting';
 import { ObjetoListComponent } from './list/objeto.list.component';
@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
     CommonModule,
     ObjetoRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule
   ],
   declarations: [
@@ -20,6 +21,7 @@ import { HttpClientModule } from '@angular/common/http';
   ],
   providers: [
     ObjetoService,
+    FormBuilder
   ]
 })
 export class ObjetoModule { }
