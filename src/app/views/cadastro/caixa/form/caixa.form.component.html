@@ -6,35 +6,56 @@
           <strong>Caixa</strong>
           <small>Cadastro</small>
         </div>
-        <form #form="ngForm" novalidate>
+
+        {{myForm.value | json }}
+
+        <form [formGroup]="myForm" novalidate>
           <div class="card-body">
+
             <div class="row">
               <div class="col-sm-4">
                 <div class="form-group">
-                  <label for="tipo">Tipo</label>
-                    <input list="tipoCaixa" #listaDonoInput class="form-control" name="tipo" ngModel required placeholder="Pesquisar...">
-                    <datalist id="tipoCaixa">
+                  <label>Tipo</label>
+                  <div class="input-group">
+                    <input list="tipo" class="form-control">
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary" (click)="dialogTipo()" type="button"><i class="fa fa-plus"></i></button>
+                    </div>
+                    <datalist id="tipo">
                       <option value="Organizadora">
                     </datalist>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label>Cor</label>
+                  <div class="input-group">
+                    <input list="cor" class="form-control">
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary" type="button"><i class="fa fa-plus"></i></button>
+                    </div>
+                    <datalist id="cor">
+                      <option value="Organizadora">
+                    </datalist>
+                  </div>
                 </div>
               </div>
 
 
               <div class="col-sm-4">
                 <div class="form-group">
-                  <label for="cor">Cor</label>
-                  <input list="cor" #listaDonoInput class="form-control" name="cor" ngModel required placeholder="Pesquisar...">
-                  <datalist id="cor">
-                    <option value="Azul">01 - Azul</option>
-                  </datalist>
-                </div>
-              </div>
-
-
-              <div class="col-sm-4">
-                <div class="form-group">
-                  <label for="name">Local</label>
-                  <input type="text" name="local" class="form-control" ngModel required />
+                  <label>Local</label>
+                  <div class="input-group">
+                    <input list="local" class="form-control">
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary" type="button"><i class="fa fa-plus"></i></button>
+                    </div>
+                    <datalist id="local">
+                      <option value="Organizadora">
+                    </datalist>
+                  </div>
                 </div>
               </div>
 
@@ -43,25 +64,35 @@
 
 
             <div class="row">
-              <div class="col-sm-4">
+              <div class="col-sm-3">
                 <div class="form-group">
                   <label for="name">Altura</label>
-                  <input type="number" class="form-control" name="altura" ngModel>
+                  <input type="number" class="form-control" formControlName="altura">
                 </div>
               </div>
 
-              <div class="col-sm-4">
+              <div class="col-sm-3">
                 <div class="form-group">
                   <label for="name">Largura</label>
-                  <input type="number" class="form-control" name="largura" ngModel />
+                  <input type="number" class="form-control" formControlName="largura" />
                 </div>
               </div>
 
 
-              <div class="col-sm-4">
+              <div class="col-sm-3">
                 <div class="form-group">
                   <label for="name">Comprimento</label>
-                  <input type="number" class="form-control" name="comprimento" ngModel />
+                  <input type="number" class="form-control" formControlName="comprimento" />
+                </div>
+              </div>
+
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label for="name">Caixa</label>
+                  <input list="caixa" class="form-control" formControlName="caixaCodigo">
+                  <datalist id="caixa">
+                    <option value="Organizadora">
+                  </datalist>
                 </div>
               </div>
 
@@ -69,11 +100,9 @@
             <div class="row">
               <div class="col-sm-12">
                 <label>Observacao</label>
-                <textarea class="form-control" name="observacao" ngModel ></textarea>
+                <textarea class="form-control" formControlName="observacao"></textarea>
               </div>
             </div> <!-- /.row-->
-            <input type="hidden" name="codigo" #codigoInput ngModel>
-            <input type="hidden" name="caixaCodigo" ngModel>
           </div>
         </form>
       </div>
@@ -83,15 +112,16 @@
   <!--/.row-->
 </div>
 <div>
-  <button type="button" class="btn btn-primary" [disabled]='!form.valid' (click)="salvar(form)">Salvar</button>
-  <a type="reset" class="btn border-primary" [routerLink]="['/cadastro', 'caixa']" >Voltar</a>
-  <button type="reset" class="btn btn-danger" [disabled]="codigoInput.value == 0" (click)="delete(codigoInput.value)" >Excluir</button>
+  <button type="button" class="btn btn-primary" [disabled]='!this.myForm.valid' (click)="salvar()">Salvar</button>
+  <a type="reset" class="btn border-primary" [routerLink]="['/cadastro', 'caixa']">Voltar</a>
+  <button type="reset" class="btn btn-danger" [disabled]="this.myForm.value.codigo == 0" (click)="delete()">Excluir</button>
 </div>
 
 
 
 
-<div bsModal #myModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div bsModal #myModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -110,4 +140,3 @@
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-

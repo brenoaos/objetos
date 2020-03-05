@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { PessoaRoutingModule } from './pessoa.rounting';
 import { PessoaListComponent } from './list/pessoa.list.component';
@@ -11,8 +11,9 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     CommonModule,
     PessoaRoutingModule,
+    HttpClientModule,
     FormsModule,
-    HttpClientModule
+    ReactiveFormsModule,
   ],
   declarations: [
     PessoaListComponent,
