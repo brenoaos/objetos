@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { PessoaRoutingModule } from './pessoa.rounting';
 import { PessoaListComponent } from './list/pessoa.list.component';
@@ -9,11 +9,11 @@ import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   imports: [
-    CommonModule,
     PessoaRoutingModule,
-    HttpClientModule,
+    CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule
   ],
   declarations: [
     PessoaListComponent,
@@ -21,6 +21,7 @@ import { HttpClientModule } from '@angular/common/http';
   ],
   providers: [
     PessoaService,
+    FormBuilder
   ]
 })
 export class PessoaModule { }
