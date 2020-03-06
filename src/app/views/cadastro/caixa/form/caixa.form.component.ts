@@ -1,11 +1,13 @@
 import { Component, OnInit, OnDestroy, ViewChildren, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, FormsModule, NgForm, Validators, FormControl } from '@angular/forms';
 import { CaixaService } from '../caixa.service';
-import { Caixa } from '../../../../models/caixa.model';
+import { Caixa, TipoCaixaEntity, LocalCaixaEntity, CorCaixaEntity } from '../../../../models/caixa.model';
 import { Router, ActivatedRoute } from '@angular/router';
 import { isString } from 'util';
 import { ModalDirective, ModalModule, BsModalService } from 'ngx-bootstrap';
 import { TipoDialog } from '../dialog/tipo/tipo.componente.dialog';
+import { LocalDialog } from '../dialog/local/local.componente.dialog';
+import { CorDialog } from '../dialog/cor/cor.componente.dialog';
 
 @Component({
   selector: 'app-caixa-form',
@@ -14,7 +16,11 @@ import { TipoDialog } from '../dialog/tipo/tipo.componente.dialog';
 })
 export class CaixaFormComponent implements OnInit {
 
-  myForm: FormGroup
+  myForm: FormGroup;
+  tipos: string[] = [];
+  cores: string[] = [];
+  locais: string[] = [];
+  caixas: string[] = [];
 
   @ViewChild('myModal') public myModal: ModalDirective;
   alertMensagem: string;
@@ -29,15 +35,20 @@ export class CaixaFormComponent implements OnInit {
   ngOnInit() {
     this.myForm = this._formBuilder.group({
       codigo: [0, []],
-      tipo: [0, [Validators.required]],
-      cor: [0, [Validators.required]],
-      local: [0, [Validators.required]],
+      tipo: ['', [Validators.required]],
+      cor: ['', [Validators.required]],
+      local: ['', [Validators.required]],
       altura: [0, []],
       largura: [0, []],
       caixaCodigo: [null, []],
       comprimento: [0, []],
       observacao: ['', []]
     })
+
+    this.getTipos();
+    this.getCores();
+    this.getLocais();
+    this.getCaixas();
 
     this._activeRouter.params.subscribe(params => {
       const codigo = params['codigo'];
@@ -49,6 +60,39 @@ export class CaixaFormComponent implements OnInit {
       }
     });
   }
+
+  getTipos(filter?: any) {
+    this._service.getTipos(filter).subscribe((t: any) => {
+      t.registros.forEach(tipo => {
+          this.tipos.push(tipo.codigo + ' | ' + tipo.descricao);
+      })   
+    });
+  }
+
+  getCores(filter?: any) {
+    this._service.getCores(filter).subscribe((t: any) => {
+      t.registros.forEach(cor => {
+          this.cores.push(cor.codigo + ' | ' + cor.descricao);
+      })   
+    });
+  }
+
+  getLocais(filter?: any) {
+    this._service.getLocais(filter).subscribe((t: any) => {
+      t.registros.forEach(local => {
+          this.locais.push(local.codigo + ' | ' + local.descricao);
+      })   
+    });
+  }
+
+  getCaixas(filter?: any) {
+    this._service.getCaixas(filter).subscribe((t: any) => {
+      t.registros.forEach(caixa => {
+          this.caixas.push(caixa.codigo + ' | ' + caixa.descricao);
+      })   
+    });
+  }
+
 
   salvar() {
     if (this.myForm.valid) {
@@ -69,10 +113,16 @@ export class CaixaFormComponent implements OnInit {
     })
   }
 
-
-
   dialogTipo() {
     this._dialog.show(TipoDialog);
+  }
+
+  dialogCor() {
+    this._dialog.show(CorDialog);
+  }
+
+  dialogLocal() {
+    this._dialog.show(LocalDialog)
   }
 
 }

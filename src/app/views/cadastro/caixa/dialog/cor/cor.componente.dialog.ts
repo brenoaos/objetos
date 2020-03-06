@@ -14,13 +14,13 @@ import { urlApi } from '../../../../../app.api';
   
 
 @Component({
-    selector: 'tipo.component.dialog',
-    templateUrl: './tipo.component.dialog.html',
+    selector: 'cor.component.dialog',
+    templateUrl: './cor.component.dialog.html',
 })
-export class TipoDialog implements OnInit {
+export class CorDialog implements OnInit {
 
     myForm: FormGroup;
-    url: string = `${urlApi()}/caixa/tipo`;
+    url: string = `${urlApi()}/caixa/cor`;
 
     constructor(
         public dialogRef: BsModalRef,

@@ -40,7 +40,7 @@
             <tr *ngFor="let caixa of caixas">
               <th scope="row">{{caixa.codigo}}</th>
               <td>{{caixa.tipo}}</td>
-              <td>{{caixa.cor}}</td>
+              <td>{{getCorByID(caixa.cor)}}</td>
               <td>{{caixa.local}}</td>
               <td>
                 <div class="dropdown">

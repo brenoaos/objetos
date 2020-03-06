@@ -1,4 +1,4 @@
-import { Caixa } from '../../../models/caixa.model';
+import { Caixa, CorCaixaEntity } from '../../../models/caixa.model';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, } from 'rxjs';
@@ -18,12 +18,47 @@ export class CaixaService {
         const params = new HttpParams()
             .set('filtro', JSON.stringify(filter));
 
-        const response = this.http.get(this.url, {params});
+        const response = this.http.get(this.url, { params });
+        return response;
+    }
+
+
+    getTipos(filter?: string) {
+
+        const params = new HttpParams()
+            .set('filtro', JSON.stringify(filter));
+
+        const response = this.http.get(`${urlApi()}/caixa/tipo`, { params });
+
+        return response;
+    }
+
+    getCores(filter?: any) {
+
+        const params = new HttpParams()
+            .set('filtro', JSON.stringify(filter));
+
+        const response = this.http.get(`${urlApi()}/caixa/cor`, { params });
+
+        return response;
+    }
+
+    getLocais(filter?: any) {
+
+        const params = new HttpParams()
+            .set('filtro', JSON.stringify(filter));
+
+        const response = this.http.get(`${urlApi()}/caixa/local`, { params });
+
         return response;
     }
 
     getCaixaByID(codigo: number): Observable<any> {
-        return this.http.get(this.url + '/' + codigo );
+        return this.http.get(this.url + '/' + codigo);
+    }
+
+    getCorByID(codigo: number): Observable<any> {
+        return this.http.get(`${urlApi()}/caixa/cor/${codigo}`);
     }
 
     deleteCaixa(codigo: number | string): Observable<any> {
@@ -34,7 +69,7 @@ export class CaixaService {
 
     salvar(caixa: Caixa) {
 
-        if (isNaN(caixa.codigo) || isString(caixa.codigo)) {
+        if (caixa.codigo === 0) {
             return this.http.post(this.url, caixa);
         }
 

@@ -11,3 +11,19 @@ export class Caixa {
     observacao: string;
 
 }
+
+export class TipoCaixaEntity {
+    codigo: number;
+    descricao: string;
+}
+
+
+export class CorCaixaEntity {
+    codigo: number;
+    descricao: string;
+}
+
+export class LocalCaixaEntity {
+    codigo: number;
+    descricao: string;
+}

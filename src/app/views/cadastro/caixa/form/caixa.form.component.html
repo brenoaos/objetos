@@ -6,58 +6,67 @@
           <strong>Caixa</strong>
           <small>Cadastro</small>
         </div>
-
-        {{myForm.value | json }}
-
         <form [formGroup]="myForm" novalidate>
           <div class="card-body">
-
             <div class="row">
-              <div class="col-sm-4">
+              <div class="col-sm-3">
                 <div class="form-group">
                   <label>Tipo</label>
                   <div class="input-group">
-                    <input list="tipo" class="form-control">
+                    <input list="tipo" class="form-control" formControlName="tipo">
                     <div class="input-group-append">
-                      <button class="btn btn-outline-secondary" (click)="dialogTipo()" type="button"><i class="fa fa-plus"></i></button>
+                      <button class="btn btn-outline-secondary" (click)="dialogTipo()" type="button"><i
+                          class="fa fa-plus"></i></button>
                     </div>
                     <datalist id="tipo">
-                      <option value="Organizadora">
+                      <option *ngFor="let tipo of tipos" [value]="tipo">
                     </datalist>
                   </div>
                 </div>
               </div>
-
-              <div class="col-sm-4">
+              <div class="col-sm-3">
                 <div class="form-group">
                   <label>Cor</label>
                   <div class="input-group">
-                    <input list="cor" class="form-control">
+                    <input list="cor" class="form-control" formControlName="cor">
                     <div class="input-group-append">
-                      <button class="btn btn-outline-secondary" type="button"><i class="fa fa-plus"></i></button>
+                      <button class="btn btn-outline-secondary" type="button" (click)="dialogCor()"><i
+                          class="fa fa-plus"></i></button>
                     </div>
                     <datalist id="cor">
-                      <option value="Organizadora">
+                      <option *ngFor="let cor of cores" [value]="cor">
                     </datalist>
                   </div>
                 </div>
               </div>
 
 
-              <div class="col-sm-4">
+              <div class="col-sm-3">
                 <div class="form-group">
                   <label>Local</label>
                   <div class="input-group">
-                    <input list="local" class="form-control">
+                    <input list="local" class="form-control" formControlName="local">
                     <div class="input-group-append">
-                      <button class="btn btn-outline-secondary" type="button"><i class="fa fa-plus"></i></button>
+                      <button class="btn btn-outline-secondary" type="button" (click)="dialogLocal()"><i
+                          class="fa fa-plus"></i></button>
                     </div>
                     <datalist id="local">
-                      <option value="Organizadora">
+                      <option *ngFor="let local of locais" [value]="local">
                     </datalist>
                   </div>
                 </div>
               </div>
+
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label for="name">Caixa</label>
+                  <input list="caixa" class="form-control" formControlName="caixaCodigo">
+                  <datalist id="caixa">
+                    <option *ngFor="let caixa of caixas" [value]="caixa">
+                  </datalist>
+                </div>
+              </div>
+
 
             </div>
             <!--/.row-->
@@ -112,9 +121,10 @@
   <!--/.row-->
 </div>
 <div>
-  <button type="button" class="btn btn-primary" [disabled]='!this.myForm.valid' (click)="salvar()">Salvar</button>
+  <button type="button" class="btn btn-primary" [disabled]="!this.myForm.valid" (click)="salvar()">Salvar</button>
   <a type="reset" class="btn border-primary" [routerLink]="['/cadastro', 'caixa']">Voltar</a>
-  <button type="reset" class="btn btn-danger" [disabled]="this.myForm.value.codigo == 0" (click)="delete()">Excluir</button>
+  <button type="reset" class="btn btn-danger" [disabled]="this.myForm.value.codigo == 0"
+    (click)="delete()">Excluir</button>
 </div>
 
 

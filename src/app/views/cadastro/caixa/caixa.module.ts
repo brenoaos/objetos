@@ -8,6 +8,8 @@ import { CaixaService } from './caixa.service'
 import { HttpClientModule } from '@angular/common/http';
 import { ModalModule, BsModalRef } from 'ngx-bootstrap';
 import { TipoDialog } from './dialog/tipo/tipo.componente.dialog';
+import { LocalDialog } from './dialog/local/local.componente.dialog';
+import { CorDialog } from './dialog/cor/cor.componente.dialog';
 
 @NgModule({
   imports: [
@@ -23,6 +25,8 @@ import { TipoDialog } from './dialog/tipo/tipo.componente.dialog';
     CaixaListComponent,
     CaixaFormComponent,
     TipoDialog,
+    LocalDialog,
+    CorDialog
   ],
   providers: [
     CaixaService,

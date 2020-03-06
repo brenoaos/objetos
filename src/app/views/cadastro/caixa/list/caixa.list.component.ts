@@ -81,6 +81,13 @@ export class CaixaListComponent implements OnInit {
     }
   }
 
+  getCorByID(codigo:number) {
+    this._servico.getCorByID(codigo)
+              .subscribe(c => this.caixas.forEach((cc) => {
+                
+              }));
+    return '';
+  }
 
   
 }
