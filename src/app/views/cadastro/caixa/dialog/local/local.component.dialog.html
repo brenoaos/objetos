@@ -1,0 +1,31 @@
+<div class="animated fadeIn" style="margin:10px">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <strong>Local</strong>
+                    <small>Cadastro</small>
+                </div>
+                <form [formGroup]="myForm" novalidate>
+                    <div class="card-body">
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label>Local</label>
+                                    <input type="text" formControlName="descricao" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!--/.col-->
+    </div>
+    <!--/.row-->
+</div>
+<div style="margin:10px">
+    <button type="button" class="btn btn-primary btn-lg btn-block" [disabled]='!this.myForm.valid' (click)="salvar()">Salvar</button>
+</div>

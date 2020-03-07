@@ -1,5 +1,3 @@
-<h2>Cadastro de Pessoa - Form </h2>
-
 <div class="animated fadeIn">
   <div class="row">
     <div class="col-sm-12">
@@ -8,24 +6,20 @@
           <strong>Pessoa</strong>
           <small>Cadastro</small>
         </div>
-        <form #form="ngForm" novalidate>
-          <input type="hidden" name="codigo" ngModel>
-          <input type="hidden" name="dataCadastro" ngModel>
-          <input type="hidden" name="dataAlteracao" ngModel>
-          
+        <form [formGroup]="myForm" novalidate>         
           <div class="card-body">
             <div class="row">
               <div class="col-sm-6">
                 <div class="form-group">
                   <label for="name">Name</label>
-                  <input type="text" class="form-control" name="nome" (value)="pessoa.nome" ngModel required>
+                  <input type="text" class="form-control" formControlName="nome" (value)="pessoa.nome" required>
                 </div>
               </div>
 
               <div class="col-sm-6">
                 <div class="form-group">
                   <label for="name">Sobrenome</label>
-                  <input type="text" class="form-control" name="sobrenome" ngModel required>
+                  <input type="text" class="form-control" formControlName="sobrenome" required>
                 </div>
               </div>
 
@@ -38,14 +32,14 @@
               <div class="col-sm-6">
                 <div class="form-group">
                   <label for="name">Apelido</label>
-                  <input type="text" class="form-control" name="apelido" ngModel required>
+                  <input type="text" class="form-control" formControlName="apelido" required>
                 </div>
               </div>
 
               <div class="col-sm-6">
                 <div class="form-group">
                   <label for="name">Sexo</label>
-                  <select class="form-control" name="sexo" ngModel>
+                  <select class="form-control" formControlName="sexo">
                     <option value="1">Masculino</option>
                     <option value="2">Feminino</option>
                   </select>
@@ -57,21 +51,21 @@
             <div class="row">
               <div class="col-sm-2">
                 <div class="custom-control custom-switch">
-                  <input type="checkbox" class="custom-control-input" id="isDono" name="isDono" ngModel>
+                  <input type="checkbox" class="custom-control-input" id="isDono" formControlName="isDono">
                   <label class="custom-control-label" for="isDono">Dono</label>
                 </div>
               </div>
 
               <div class="col-sm-2">
                 <div class="custom-control custom-switch">
-                  <input type="checkbox" class="custom-control-input" id="isZelador" name="isZelador" ngModel>
+                  <input type="checkbox" class="custom-control-input" id="isZelador" formControlName="isZelador">
                   <label class="custom-control-label" for="isZelador">Bloqueado</label>
                 </div>
               </div>
 
               <div class="col-sm-2">
                 <div class="custom-control custom-switch">
-                  <input type="checkbox" class="custom-control-input" id="bloqueado" name="bloqueado" ngModel>
+                  <input type="checkbox" class="custom-control-input" id="bloqueado" formControlName="bloqueado">
                   <label class="custom-control-label" for="bloqueado">Bloqueado</label>
                 </div>
               </div>
