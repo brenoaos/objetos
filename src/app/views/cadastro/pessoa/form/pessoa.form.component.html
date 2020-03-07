@@ -80,6 +80,7 @@
   <!--/.row-->
 </div>
 <div>
-  <button type="button" class="btn btn-primary" [disabled]='!form.valid' (click)="salvar(form)" >Salvar</button>
-  <button type="reset" class="btn btn-danger" >Limpar</button>
+  <button type="button" class="btn btn-primary" [disabled]='!myForm.valid' (click)="salvar()">Salvar</button>
+  <a type="reset" class="btn border-primary" [routerLink]="['/cadastro', 'pessoa']" >Voltar</a>
+  <button type="reset" class="btn btn-danger" [disabled]="this.myForm.value.codigo == 0" (click)="delete()" >Excluir</button>
 </div>

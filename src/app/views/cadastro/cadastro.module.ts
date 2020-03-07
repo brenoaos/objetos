@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { CadastroRoutingModule } from './cadastro-routing.module';
 import { PessoaModule } from './pessoa/pessoa.module';
 import { CaixaModule } from './caixa/caixa.module';
+import { ObjetoModule } from './objeto/objeto.module';
 
 
 
@@ -13,6 +14,7 @@ import { CaixaModule } from './caixa/caixa.module';
       CommonModule,
       PessoaModule,
       CaixaModule,
+      ObjetoModule,
       CadastroRoutingModule,
       FormsModule
     ],
