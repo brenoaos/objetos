@@ -55,4 +55,12 @@ export class PessoaFormComponent implements OnInit {
     }
   }
 
+
+  delete() {
+    let codigo = this.myForm.value.codigo;
+    if (codigo !== 0) {
+      this._service.deletePessoa(codigo).subscribe(() => this._router.navigate(['cadastro', 'pessoa'] ))
+    }
+  }
+
 }

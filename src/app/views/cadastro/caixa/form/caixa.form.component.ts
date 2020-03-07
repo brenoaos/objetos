@@ -8,7 +8,7 @@ import { ModalDirective, ModalModule, BsModalService } from 'ngx-bootstrap';
 import { TipoDialog } from '../dialog/tipo/tipo.componente.dialog';
 import { LocalDialog } from '../dialog/local/local.componente.dialog';
 import { CorDialog } from '../dialog/cor/cor.componente.dialog';
-import QRCode from 'qrcode'
+// import QRCode from 'qrcode'
 @Component({
   selector: 'app-caixa-form',
   templateUrl: './caixa.form.component.html',
@@ -21,7 +21,7 @@ export class CaixaFormComponent implements OnInit {
   cores: string[] = [];
   locais: string[] = [];
   caixas: string[] = [];
-  qrcode: QRCode;
+  // qrcode: QRCode;
   url:any
 
   @ViewChild('myModal') public myModal: ModalDirective;
@@ -100,15 +100,15 @@ export class CaixaFormComponent implements OnInit {
     if (this.myForm.valid) {
       this._service.salvar(this.myForm.value).subscribe((p: Caixa) => {
         if (p.codigo) {
-          QRCode.toDataURL(window.location.origin + '/#/cadastro/objeto' )
-            .then(async url => {
-              console.log(url)
-              this.url = url
+          // QRCode.toDataURL(window.location.origin + '/#/cadastro/objeto' )
+          //   .then(async url => {
+          //     console.log(url)
+          //     this.url = url
               
-            })
-            .catch(err => {
-              console.error(err)
-            })
+          //   })
+          //   .catch(err => {
+          //     console.error(err)
+          //   })
           this.myModal.show()
           // this._router.navigate(['/cadastro/caixa']);
         }
