@@ -24,6 +24,7 @@ export class PessoaFormComponent implements OnInit {
   ngOnInit() {
 
     this.myForm = this._formBuilder.group({
+      codigo: [0, []],
       nome: ['', [Validators.required]],
       sobrenome: ['', [Validators.required]],
       apelido: ['', []],
