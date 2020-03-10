@@ -148,6 +148,11 @@
     universal-analytics "^0.4.20"
     uuid "^3.3.2"
 
+"@angular/common@>= 5.0.0 < 9.1.0":
+  version "9.0.5"
+  resolved "https://registry.yarnpkg.com/@angular/common/-/common-9.0.5.tgz#80e5ebbd5ec9b7f33bace0d6f70267b07cba9090"
+  integrity sha512-AwZKYK5M/3762woK+3290JnBdlBvZXqxX5vVze6wk23IiBlwIV+l79+Lyfjo/4s031kibq47taaZdC7qkkBkNA==
+
 "@angular/common@^9.0.0":
   version "9.0.1"
   resolved "https://registry.yarnpkg.com/@angular/common/-/common-9.0.1.tgz#78457633a447c49bcc0e0bd8049cc2adbb016484"
@@ -922,6 +927,11 @@
   resolved "https://registry.yarnpkg.com/@istanbuljs/schema/-/schema-0.1.2.tgz#26520bf09abe4a5644cd5414e37125a8954241dd"
   integrity sha512-tsAQNx32a8CoFhjhijUIhI4kccIAgmGhy8LZMZgGfmXcpMbPRUqn5LWmgRttILi6yeGmBJd2xsPkFMs0PzgPCw==
 
+"@ng-bootstrap/ng-bootstrap@^6.0.0":
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/@ng-bootstrap/ng-bootstrap/-/ng-bootstrap-6.0.0.tgz#03b80acd711dd38a653b34339224d5063c50bd62"
+  integrity sha512-ho0Ssw+kwpGzc+Rvtu2pRSrcbduECMf9+uekhOMB1nzhUfF2vJQnTDpPfHZQgU/ukTMEJWvby5vcXJoPtHgE+w==
+
 "@ngtools/webpack@9.0.2":
   version "9.0.2"
   resolved "https://registry.yarnpkg.com/@ngtools/webpack/-/webpack-9.0.2.tgz#5f2d79f612dec21d471ca862889d3c4a80e0cb4a"
@@ -954,6 +964,11 @@
     rxjs "6.5.3"
     semver "6.3.0"
     semver-intersect "1.4.0"
+
+"@types/async@^3.0.8":
+  version "3.0.8"
+  resolved "https://registry.yarnpkg.com/@types/async/-/async-3.0.8.tgz#8c183f149d8cc91f944d58e5594d2a614ceb33ff"
+  integrity sha512-wIM8bCrHeQHCUyDqJYXyvG8P98YeERaOB1NeOvcjnjlM32pn21S13j6tZqhiWX+nkpU3EvhtE/nuO1ItCpZ+HQ==
 
 "@types/chart.js@^2.7.48":
   version "2.9.14"
@@ -1298,6 +1313,15 @@ alphanum-sort@^1.0.0:
   resolved "https://registry.yarnpkg.com/alphanum-sort/-/alphanum-sort-1.0.2.tgz#97a1119649b211ad33691d9f9f486a8ec9fbe0a3"
   integrity sha1-l6ERlkmyEa0zaR2fn0hqjsn74KM=
 
+angularx-qrcode@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/angularx-qrcode/-/angularx-qrcode-2.1.0.tgz#94ba30647f851305c58b6365ec9eb8fb91bb97dc"
+  integrity sha512-4mtlPJmemQINEz8OH6cYOllLJ77kFamk38G1L8OLF4X/nrxWaFIxMiKcPHf/HVeqATSAPismgqPu9aM5RhF/ig==
+  dependencies:
+    "@angular/common" ">= 5.0.0 < 9.1.0"
+    qrcode "1.4.2"
+    tslib "^1.9.0"
+
 ansi-colors@4.1.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/ansi-colors/-/ansi-colors-4.1.1.tgz#cbb9ae256bf750af1eab344f229aa27fe94ba348"
@@ -1506,6 +1530,11 @@ async-each@^1.0.1:
   resolved "https://registry.yarnpkg.com/async-each/-/async-each-1.0.3.tgz#b727dbf87d7651602f06f4d4ac387f47d91b0cbf"
   integrity sha512-z/WhQ5FPySLdvREByI2vZiTWwCnF0moMJ1hK9YQwDTHKh6I7/uSckMetoRGb5UBZPC1z0jlw+n/XCgjeH7y1AQ==
 
+async-es@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/async-es/-/async-es-3.2.0.tgz#8837aa12f675de80fac56b94a4b4cef515343de3"
+  integrity sha512-dMWVIUBi/ejt+QERtMdIin2rlzSNK7GAfEwIyaOGDy536s0OqH+aUNkj9MQ01hq2rB1f7x6w7RJchtthCk0IDA==
+
 async-limiter@~1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/async-limiter/-/async-limiter-1.0.1.tgz#dd379e94f0db8310b08291f9d64c3209766617fd"
@@ -1517,6 +1546,11 @@ async@^2.5.0, async@^2.6.2:
   integrity sha512-zflvls11DCy+dQWzTW2dzuilv8Z5X/pjfmZOWba6TNIVDm+2UDaJmXSOXlasHKfNBs8oo3M0aT50fDEWfKZjXg==
   dependencies:
     lodash "^4.17.14"
+
+async@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/async/-/async-3.2.0.tgz#b3a2685c5ebb641d3de02d161002c60fc9f85720"
+  integrity sha512-TR2mEZFVOj2pLStYxLht7TyfuRzaydfpxr3k9RpHIzMgw7A64dzsdqCxH1WJyQdoe8T10nDXd9wnEigmiuHIZw==
 
 asynckit@^0.4.0:
   version "0.4.0"
@@ -5497,6 +5531,11 @@ ngx-perfect-scrollbar@^8.0.0:
     perfect-scrollbar "^1.4.0"
     resize-observer-polyfill "^1.5.0"
 
+ngx-toastr@^12.0.0:
+  version "12.0.0"
+  resolved "https://registry.yarnpkg.com/ngx-toastr/-/ngx-toastr-12.0.0.tgz#1b35a4e5b785246c558e091c831a26ebf211cfd7"
+  integrity sha512-J0mvGXH9cLlP3acoLJcuYhsQcL+EOAtkS1Y5tFKzrw2TYqY2HNffMVPvK+KP1LDJHiIgRpYg3ZELw1raAl0R/A==
+
 nice-try@^1.0.4:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/nice-try/-/nice-try-1.0.5.tgz#a3378a7696ce7d223e88fc9b764bd7ef1089e366"
@@ -6642,6 +6681,16 @@ qjobs@^1.1.4:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/qjobs/-/qjobs-1.2.0.tgz#c45e9c61800bd087ef88d7e256423bdd49e5d071"
   integrity sha512-8YOJEHtxpySA3fFDyCRxA+UUV+fA+rTWnuWvylOK/NCjhY+b4ocCtmu8TtsWb+mYeU+GCHf/S66KZF/AsteKHg==
+
+qrcode@1.4.2:
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/qrcode/-/qrcode-1.4.2.tgz#e7c82a60140916d666541043bd2b0b72ee4e38a6"
+  integrity sha512-eR6RgxFYPDFH+zFLTJKtoNP/RlsHANQb52AUmQ2bGDPMuUw7jJb0F+DNEgx7qQGIElrbFxWYMc0/B91zLZPF9Q==
+  dependencies:
+    dijkstrajs "^1.0.1"
+    isarray "^2.0.1"
+    pngjs "^3.3.0"
+    yargs "^13.2.4"
 
 qrcode@^1.4.4:
   version "1.4.4"

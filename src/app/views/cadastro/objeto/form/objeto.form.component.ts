@@ -7,6 +7,8 @@ import { Pessoa } from '../../../../models/pessoa.model';
 import { PessoaModule } from '../../pessoa/pessoa.module';
 import { PessoaService } from '../../pessoa/pessoa.service';
 import { stringify } from 'querystring';
+import { CaixaService } from '../../caixa/caixa.service';
+import { Caixa } from '../../../../models/caixa.model';
 
 @Component({
   selector: 'app-objeto-form',
@@ -18,11 +20,13 @@ export class ObjetoFormComponent implements OnInit {
   @ViewChild('form') form: NgForm;
 
   myForm: FormGroup;
+  caixas: Caixa[] = [];
 
   constructor(
     private _service: ObjetoService,
     private readonly _router: Router,
     private readonly _pessoaService: PessoaService,
+    private readonly _caixaService: CaixaService,
     private readonly _activeRouter: ActivatedRoute,
     private readonly _formBuilder: FormBuilder
   ) { }
@@ -40,12 +44,15 @@ export class ObjetoFormComponent implements OnInit {
       material: ['', []],
       tensao: [0, []],
       donoCodigo: [null, [Validators.required]],
+      caixaCodigo: [null, []],
       zeladorCodigo: [null, []],
       dataValidade: [null, []],
       chaveAcessoNotaFiscal: ['', []],
       observacao: ['', []]
     })
-
+    
+    this.getCaixas();
+    this.getPessoas();
 
     this._activeRouter.params.subscribe(params => {
       const codigo = params['codigo'];
@@ -67,7 +74,6 @@ export class ObjetoFormComponent implements OnInit {
   }
 
   getPessoas(formInput?: any) {
-    debugger;
     let filter = {};
 
     if (formInput) {
@@ -81,8 +87,18 @@ export class ObjetoFormComponent implements OnInit {
       };
     }
     this._pessoaService.getPessoas(filter).subscribe((p) => {
-      debugger;
       this.pessoas = p.registros;
+    });
+  }
+
+  getCaixas() {
+    this._caixaService.getCaixas().subscribe(c => {
+      this.caixas = c.registros
+      this.caixas.forEach(c => {
+        this._caixaService.getCorByID(c.cor).subscribe((t) => c.cor = t)
+        this._caixaService.getTipoByID(c.tipo).subscribe((t) => c.tipo = t)
+        this._caixaService.getLocalByID(c.local).subscribe((t) => c.local = t)
+      })
     });
   }
 

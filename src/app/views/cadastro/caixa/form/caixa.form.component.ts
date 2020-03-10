@@ -1,10 +1,10 @@
-import { Component, OnInit, OnDestroy, ViewChildren, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder, FormsModule, NgForm, Validators, FormControl } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { CaixaService } from '../caixa.service';
-import { Caixa, TipoCaixaEntity, LocalCaixaEntity, CorCaixaEntity } from '../../../../models/caixa.model';
+import { Caixa } from '../../../../models/caixa.model';
+import { Objeto } from '../../../../models/objeto.model';
 import { Router, ActivatedRoute } from '@angular/router';
-import { isString } from 'util';
-import { ModalDirective, ModalModule, BsModalService } from 'ngx-bootstrap';
+import { ModalDirective, BsModalService, ModalOptions } from 'ngx-bootstrap';
 import { TipoDialog } from '../dialog/tipo/tipo.componente.dialog';
 import { LocalDialog } from '../dialog/local/local.componente.dialog';
 import { CorDialog } from '../dialog/cor/cor.componente.dialog';
@@ -21,10 +21,14 @@ export class CaixaFormComponent implements OnInit {
   cores: string[] = [];
   locais: string[] = [];
   caixas: string[] = [];
-  // qrcode: QRCode;
-  url:any
+  url: any
+  itens: Objeto[];
 
   @ViewChild('myModal') public myModal: ModalDirective;
+  @ViewChild('itemModal') public itemModal: ModalDirective;
+  @ViewChild('inputLocal') public inputLocal: FormControl
+
+
   alertMensagem: string;
   constructor(
     private _service: CaixaService,
@@ -56,42 +60,61 @@ export class CaixaFormComponent implements OnInit {
       const codigo = params['codigo'];
       if (!isNaN(codigo)) {
         this._service.getCaixaByID(codigo).subscribe((c) => {
-          this.myForm.setValue(c);
-          this.myForm.value.observacao = c.observacao;
+          this.myForm.setValue(c)
         });
       }
     });
   }
 
+  getTipoById(caixa, callback) {
+    this._service.getTipoByID(caixa.tipo).subscribe((t: any) => {
+      caixa.tipo = t.codigo + ' | ' + t.descricao;
+      callback(caixa)
+    });
+  }
+
+  getLocalById(caixa, callback) {
+    this._service.getLocalByID(caixa.local).subscribe((t: any) => {
+      caixa.local = t.codigo + ' | ' + t.descricao;
+      callback(caixa)
+    });
+  }
+  getCorById(caixa, callback) {
+    this._service.getCorByID(caixa.cor).subscribe((t: any) => {
+      caixa.cor = t.codigo + ' | ' + t.descricao;
+      callback(caixa)
+    });
+  }
+
   getTipos(filter?: any) {
     this._service.getTipos(filter).subscribe((t: any) => {
-      t.registros.forEach(tipo => {
-          this.tipos.push(tipo.codigo + ' | ' + tipo.descricao);
-      })   
+      t.registros.forEach(tipos => {
+        this.tipos.push(tipos);
+      })
     });
   }
 
   getCores(filter?: any) {
     this._service.getCores(filter).subscribe((t: any) => {
       t.registros.forEach(cor => {
-          this.cores.push(cor.codigo + ' | ' + cor.descricao);
-      })   
+        this.cores.push(cor);
+      })
     });
   }
 
   getLocais(filter?: any) {
     this._service.getLocais(filter).subscribe((t: any) => {
       t.registros.forEach(local => {
-          this.locais.push(local.codigo + ' | ' + local.descricao);
-      })   
+        this.locais.push(local);
+      })
     });
   }
 
   getCaixas(filter?: any) {
     this._service.getCaixas(filter).subscribe((t: any) => {
       t.registros.forEach(caixa => {
-          this.caixas.push(caixa.codigo + ' | ' + caixa.descricao);
-      })   
+        this.caixas.push(caixa.codigo + ' | ' + caixa.descricao);
+      })
     });
   }
 
@@ -100,23 +123,27 @@ export class CaixaFormComponent implements OnInit {
     if (this.myForm.valid) {
       this._service.salvar(this.myForm.value).subscribe((p: Caixa) => {
         if (p.codigo) {
-          // QRCode.toDataURL(window.location.origin + '/#/cadastro/objeto' )
-          //   .then(async url => {
-          //     console.log(url)
-          //     this.url = url
-              
-          //   })
-          //   .catch(err => {
-          //     console.error(err)
-          //   })
-          this.myModal.show()
-          // this._router.navigate(['/cadastro/caixa']);
+          let modal = this.myModal;
+          modal.show()
         }
       }, err => {
         this.alertMensagem = err.message;
         this.myModal.show()
       }
       );
+    }
+  }
+
+  listarItens() {
+    if (this.myForm.value.codigo) {
+      let filtro = {
+        caixaCodigo: this.myForm.value.codigo
+      };
+
+      this._service.getItens(filtro).subscribe((d) => {
+        this.itens = d.registros;
+        this.itemModal.show();
+      })
     }
   }
 
@@ -127,15 +154,23 @@ export class CaixaFormComponent implements OnInit {
   }
 
   dialogTipo() {
-    this._dialog.show(TipoDialog);
+    this._dialog.show(TipoDialog, {
+      keyboard: true,
+    })
+
   }
 
   dialogCor() {
-    this._dialog.show(CorDialog);
+    this._dialog.show(CorDialog, {
+      keyboard: true,
+    })
+    this.getCores();
   }
 
   dialogLocal() {
-    this._dialog.show(LocalDialog)
+    this._dialog.show(LocalDialog, {
+      keyboard: true,
+    })
   }
 
 }

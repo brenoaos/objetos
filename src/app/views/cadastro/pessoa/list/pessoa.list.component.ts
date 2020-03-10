@@ -37,7 +37,6 @@ export class PessoaListComponent implements OnInit {
   }
 
   atualizarLista() {
-    debugger;
     this.servico.getPessoas(this.filter).subscribe((rest) => {
       this.pessoas = rest.registros;
       this.paginas = rest.quantidadeTotal / this.paginacao;

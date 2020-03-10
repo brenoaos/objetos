@@ -1,7 +1,8 @@
 import { Caixa, CorCaixaEntity } from '../../../models/caixa.model';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable, } from 'rxjs';
+import { Observable, of, } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 import { isString } from 'util';
 import { environment } from '../../../../environments/environment';
 import { urlApi } from '../../../app.api';
@@ -60,6 +61,20 @@ export class CaixaService {
     getCorByID(codigo: number): Observable<any> {
         return this.http.get(`${urlApi()}/caixa/cor/${codigo}`);
     }
+
+    getLocalByID(codigo: number): Observable<any>{
+        return this.http.get(`${urlApi()}/caixa/local/${codigo}`);
+    }
+
+    getTipoByID(codigo: number): Observable<any>{
+        return this.http.get(`${urlApi()}/caixa/tipo/${codigo}`);
+    }
+
+    getItens(filter: any): Observable<any> {
+        let params = new HttpParams().set('filtro', JSON.stringify(filter));
+        return this.http.get(this.url + '/listar-itens/', { params });
+    }
+
 
     deleteCaixa(codigo: number | string): Observable<any> {
         const params = new HttpParams()

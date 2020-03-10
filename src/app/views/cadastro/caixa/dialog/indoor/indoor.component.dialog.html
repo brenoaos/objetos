@@ -1,0 +1,28 @@
+<div class="animated fadeIn" style="margin:10px">
+    <div class="row">
+        <div class="col-sm-12">
+
+            <table class="table">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">Codigo</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Dono</th>
+                    <th scope="col">Descricao</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of itens">
+                    <th scope="row">{{item.codigo}}</th>
+                    <td>{{item.nome}}</td>
+                    <td>{{item.dono}}</td>
+                    <td>{{item.descricao}}</td>
+                  </tr>
+                </tbody>
+              </table>
+
+        </div>
+        <!--/.col-->
+    </div>
+    <!--/.row-->
+</div>

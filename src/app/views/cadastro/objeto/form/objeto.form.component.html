@@ -32,18 +32,20 @@
             <div class="row">
               <div class="col-sm-6">
                 <label for="name">Dono</label>
-                <input list="listDono" #listaDonoInput class="form-control" formControlName="donoCodigo" (keyup)="getPessoas(listaDonoInput)" autocomplete="false" >
-                <datalist id="listDono">
-                  <option *ngFor="let pessoa of pessoas">{{pessoa.codigo}} | {{pessoa.nome}} {{pessoa.sobrenome}} </option>
-                </datalist>
+                <select class="form-control" formControlName="donoCodigo" autocomplete="false">
+                  <option [value]="0">Sem Dono</option>
+                  <option *ngFor="let pessoa of pessoas" [value]="pessoa.codigo">{{pessoa.apelido}} - {{pessoa.nome}} {{pessoa.sobrenome}} </option>
+                </select>
               </div>
 
               <div class="col-sm-6">
-                <label for="name">Dono</label>
-                <input list="listDono" #listaDonoInput class="form-control" formControlName="zeladorCodigo" (keyup)="getPessoas(listaDonoInput)" autocomplete="false" >
-                <datalist id="listDono">
-                  <option *ngFor="let pessoa of pessoas" >{{pessoa.codigo}} | {{pessoa.nome}} {{pessoa.sobrenome}} </option>
-                </datalist>
+                <div class="form-group">
+                  <label for="name">Caixa</label>
+                  <select class="form-control" formControlName="caixaCodigo">
+                    <option [value]="0">Fora da Caixa</option>
+                    <option *ngFor="let caixa of caixas" [value]="caixa.codigo">{{caixa.tipo.descricao}} {{caixa.cor.descricao}} em {{caixa.local.descricao}}</option>
+                  </select>
+                </div>
               </div>
             </div>
             <!--/.row-->

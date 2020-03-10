@@ -1,9 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder, NgForm } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { CaixaService } from '../caixa.service';
 import { Caixa } from '../../../../models/caixa.model';
-import { Filter } from '../../../../core/utils'
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective, BsModalService } from 'ngx-bootstrap';
+import { ObjetoService } from '../../objeto/objeto.service';
+import { IndoorDialog } from '../dialog/indoor/indoor.componente.dialog'
 
 @Component({
   selector: 'app-caixa-list',
@@ -23,7 +24,10 @@ export class CaixaListComponent implements OnInit {
   @ViewChild('myModal') public myModal: ModalDirective;
 
   constructor(
-    private _servico: CaixaService
+    private _servico: CaixaService,
+    private readonly _servicoObjeto: ObjetoService,
+    private _toastService: ToastrService,
+    private _modal: BsModalService
   ) {
     this.filter = {
       take: this.paginacao,
@@ -39,11 +43,23 @@ export class CaixaListComponent implements OnInit {
   }
 
   atualizarLista() {
+
     this._servico.getCaixas(this.filter).subscribe((rest) => {
       this.caixas = rest.registros;
       this.paginas = rest.quantidadeTotal / this.paginacao;
       this.qdeRegistro = rest.quantidadeTotal;
+      this.caixas.forEach(c => {
+        this._servico.getCorByID(c.cor).subscribe(cor => c.cor = cor)
+        this._servico.getLocalByID(c.local).subscribe(local => c.local = local)
+        this._servico.getTipoByID(c.tipo).subscribe(tipo => c.tipo = tipo)
+      })
     });
+
+    this.showSuccess();
+  }
+
+  showSuccess() {
+    this._toastService.success('Hello world!', 'Toastr fun!');
   }
 
   pesquisaCaixa(valor) {
@@ -81,13 +97,26 @@ export class CaixaListComponent implements OnInit {
     }
   }
 
-  getCorByID(codigo:number) {
+  getCorByID(codigo: number) {
     this._servico.getCorByID(codigo)
-              .subscribe(c => this.caixas.forEach((cc) => {
-                
-              }));
+      .subscribe(c => this.caixas.forEach((cc) => {
+
+      }));
     return '';
   }
 
-  
+  verItens(codigo) {
+    debugger
+    let filtro = {
+      caixaCodigo: codigo
+    };
+
+    this._servico.getItens(filtro).subscribe((d) => {
+      let initialState = { itens: d.registros}
+      this._modal.show(IndoorDialog, {initialState})
+    })
+  }
+
 }
+
+

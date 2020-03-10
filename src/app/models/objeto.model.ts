@@ -15,5 +15,6 @@ export class Objeto {
     dataValidade: Date;
     chaveAcessoNotaFiscal: string;
     observacao: string;
+    caixaCodigo: number;
 
 }

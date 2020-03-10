@@ -5,6 +5,7 @@ import { CaixaFormComponent } from './form/caixa.form.component';
 import { TipoDialog } from './dialog/tipo/tipo.componente.dialog';
 import { LocalDialog } from './dialog/local/local.componente.dialog';
 import { CorDialog } from './dialog/cor/cor.componente.dialog';
+import { IndoorDialog } from './dialog/indoor/indoor.componente.dialog';
 
 const routes: Routes = [
     {
@@ -13,6 +14,11 @@ const routes: Routes = [
             title: 'Caixa',
         },
         component: CaixaListComponent,
+    },
+    {
+        path: 'lista/:codigo',
+        data: { title: 'Caixa' },
+        component: CaixaFormComponent
     },
     {
         path: 'form',
@@ -38,6 +44,11 @@ const routes: Routes = [
         path: 'cor',
         data: { title: 'Caixa' },
         component: CorDialog
+    },
+    {
+        path: 'indoor',
+        data: { title: 'Caixa' },
+        component: IndoorDialog
     }
 
 ];

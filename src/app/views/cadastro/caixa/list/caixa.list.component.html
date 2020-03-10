@@ -25,7 +25,7 @@
             </div>
           </div> <!-- /.row -->
         </div>
-
+        
         <table class="table" *ngIf="caixas.length > 0">
           <thead>
             <tr>
@@ -39,9 +39,9 @@
           <tbody>
             <tr *ngFor="let caixa of caixas">
               <th scope="row">{{caixa.codigo}}</th>
-              <td>{{caixa.tipo}}</td>
-              <td>{{getCorByID(caixa.cor)}}</td>
-              <td>{{caixa.local}}</td>
+              <td>{{caixa.tipo.descricao}}</td>
+              <td>{{caixa.cor.descricao}}</td>
+              <td>{{caixa.local.descricao}}</td>
               <td>
                 <div class="dropdown">
                   <a class="btn" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
@@ -50,7 +50,8 @@
                   </a>
                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <a class="dropdown-item" [routerLink]="['form', caixa.codigo]">Editar</a>
-                    <a class="dropdown-item" (click)="removerCaixa(caixa.codigo)" (click)="myModal.show()">Remover</a>
+                    <a class="dropdown-item" (click)="removerCaixa(caixa.codigo)">Remover</a>
+                    <a class="dropdown-item" (click)="verItens(caixa.codigo)">Ver Itens</a>
                   </div>
                 </div>
               </td>
