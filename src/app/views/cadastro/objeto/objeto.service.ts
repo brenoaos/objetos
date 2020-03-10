@@ -24,7 +24,6 @@ export class ObjetoService {
     }
 
     getObjetosById(codigo: number): Observable<any> {
-        debugger;
         return this.http.get<Objeto>(this.url + '/' + codigo);
     }
 
@@ -35,7 +34,9 @@ export class ObjetoService {
     }
 
     salvar(objeto: Objeto) {
-        debugger
+        if(objeto.codigo) {
+            return this.http.patch(this.url, objeto);
+        }
         return this.http.post(this.url, objeto);
     }
 

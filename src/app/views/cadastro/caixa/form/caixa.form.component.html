@@ -13,7 +13,9 @@
                 <div class="form-group">
                   <label>Tipo</label>
                   <div class="input-group">
-                    <input list="tipo" class="form-control" formControlName="tipo">
+                    <select list="tipo" class="form-control" formControlName="tipo">
+                      <option *ngFor="let tipo of tipos" [value]="tipo.codigo">{{tipo.descricao}}</option>
+                    </select>
                     <div class="input-group-append">
                       <button class="btn btn-outline-secondary" (click)="dialogTipo()" type="button"><i
                           class="fa fa-plus"></i></button>
@@ -28,14 +30,13 @@
                 <div class="form-group">
                   <label>Cor</label>
                   <div class="input-group">
-                    <input list="cor" class="form-control" formControlName="cor">
+                    <select class="form-control" formControlName="cor">
+                      <option *ngFor="let cor of cores" [value]="cor.codigo">{{cor.descricao}}</option>
+                    </select>
                     <div class="input-group-append">
                       <button class="btn btn-outline-secondary" type="button" (click)="dialogCor()"><i
                           class="fa fa-plus"></i></button>
                     </div>
-                    <datalist id="cor">
-                      <option *ngFor="let cor of cores" [value]="cor">
-                    </datalist>
                   </div>
                 </div>
               </div>
@@ -45,14 +46,13 @@
                 <div class="form-group">
                   <label>Local</label>
                   <div class="input-group">
-                    <input list="local" class="form-control" formControlName="local">
+                    <select class="form-control" #inputLocal formControlName="local">
+                      <option *ngFor="let local of locais" [value]="local.codigo">{{local.descricao}}</option>
+                    </select>
                     <div class="input-group-append">
                       <button class="btn btn-outline-secondary" type="button" (click)="dialogLocal()"><i
                           class="fa fa-plus"></i></button>
                     </div>
-                    <datalist id="local">
-                      <option *ngFor="let local of locais" [value]="local">
-                    </datalist>
                   </div>
                 </div>
               </div>
@@ -60,10 +60,9 @@
               <div class="col-sm-3">
                 <div class="form-group">
                   <label for="name">Caixa</label>
-                  <input list="caixa" class="form-control" formControlName="caixaCodigo">
-                  <datalist id="caixa">
-                    <option *ngFor="let caixa of caixas" [value]="caixa">
-                  </datalist>
+                  <select class="form-control" formControlName="caixaCodigo">
+                    <option *ngFor="let caixa of caixas" [value]="caixa.codigo">{{caixa.tipo}} | {{caixa.cor}}</option>
+                  </select>
                 </div>
               </div>
 
@@ -120,11 +119,13 @@
   </div>
   <!--/.row-->
 </div>
-<div>
+<div class="text-right">
   <button type="button" class="btn btn-primary" [disabled]="!this.myForm.valid" (click)="salvar()">Salvar</button>
   <a type="reset" class="btn border-primary" [routerLink]="['/cadastro', 'caixa']">Voltar</a>
   <button type="reset" class="btn btn-danger" [disabled]="this.myForm.value.codigo == 0"
     (click)="delete()">Excluir</button>
+  <button type="button" class="btn btn-info" [disabled]="this.myForm.value.codigo == 0" (click)="listarItens()">Ver
+    Itens</button>
 </div>
 
 
@@ -141,10 +142,49 @@
         </button>
       </div>
       <div class="modal-body">
-        <img [src]="url" width="50%" height="50%">
+        <qrcode [qrdata]="'testando'" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)="myModal.hide()">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<div bsModal #itemModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="itemModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Modal title</h4>
+        <button type="button" class="close" (click)="itemModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">Codigo</th>
+              <th scope="col">Nome</th>
+              <th scope="col">Dono</th>
+              <th scope="col">Descricao</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of itens">
+              <th scope="row">{{item.codigo}}</th>
+              <td>{{item.nome}}</td>
+              <td>{{item.dono}}</td>
+              <td>{{item.descricao}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="itemModal.hide()">Close</button>
         <button type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div><!-- /.modal-content -->

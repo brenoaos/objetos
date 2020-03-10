@@ -44,6 +44,8 @@ export class ObjetoListComponent implements OnInit {
       this.paginas = rest.quantidadeTotal / this.paginacao;
       this.qdeRegistro = rest.quantidadeTotal;
       this.objetos.forEach(o => {
+        
+        o['status'] = (o.caixaCodigo !== 0 ? 'Guardado' : 'Deslocado')
         this.pessoaService.getPessoasByID(o.donoCodigo).subscribe(p => o['dono'] = p);
       })
     });

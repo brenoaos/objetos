@@ -7,7 +7,7 @@ export class Caixa {
     largura: number;
     comprimento: number;
     caixaCodigo: number;
-    local: string;
+    local: number;
     observacao: string;
 
 }
