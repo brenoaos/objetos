@@ -72,7 +72,7 @@ export class CaixaService {
 
     getItens(filter: any): Observable<any> {
         let params = new HttpParams().set('filtro', JSON.stringify(filter));
-        return this.http.get(this.url + '/listar-itens/', { params });
+        return this.http.get(this.url + '/listar-itens', { params });
     }
 
 
