@@ -23,6 +23,7 @@ export class CaixaFormComponent implements OnInit {
   caixas: string[] = [];
   url: any
   itens: Objeto[];
+  novoRegistro: boolean = true;
 
   @ViewChild('myModal') public myModal: ModalDirective;
   @ViewChild('itemModal') public itemModal: ModalDirective;
@@ -51,19 +52,20 @@ export class CaixaFormComponent implements OnInit {
       observacao: ['', []]
     })
 
-    this.getTipos();
-    this.getCores();
-    this.getLocais();
-    this.getCaixas();
-
     this._activeRouter.params.subscribe(params => {
       const codigo = params['codigo'];
       if (!isNaN(codigo)) {
         this._service.getCaixaByID(codigo).subscribe((c) => {
+          this.novoRegistro = false;
           this.myForm.setValue(c)
         });
       }
     });
+
+    this.getTipos();
+    this.getCores();
+    this.getLocais();
+    this.getCaixas();
   }
 
   getTipoById(caixa, callback) {
@@ -111,9 +113,21 @@ export class CaixaFormComponent implements OnInit {
   }
 
   getCaixas(filter?: any) {
+    console.log(`codigo do formulario ${this.myForm.value.codigo}`);
     this._service.getCaixas(filter).subscribe((t: any) => {
       t.registros.forEach(caixa => {
-        this.caixas.push(caixa.codigo + ' | ' + caixa.descricao);
+        if (caixa.codigo !== this.myForm.value.codigo) {
+          this._service.getCorByID(caixa.cor).subscribe(cor => {
+            caixa.cor = cor;
+            this._service.getTipoByID(caixa.tipo).subscribe(tipo => {
+              caixa.tipo = tipo;
+              this._service.getLocalByID(caixa.local).subscribe(local => {
+                caixa.local = local
+                this.caixas.push(caixa);
+              })
+            })
+          })
+        }
       })
     });
   }
@@ -121,10 +135,12 @@ export class CaixaFormComponent implements OnInit {
 
   salvar() {
     if (this.myForm.valid) {
-      this._service.salvar(this.myForm.value).subscribe((p: Caixa) => {
-        if (p.codigo) {
-          let modal = this.myModal;
-          modal.show()
+      this._service.salvar(this.myForm.value).subscribe((p: Caixa) => {     
+        if (this.novoRegistro) {
+          this.myModal.show()
+        }
+        else{
+          this._router.navigate(['cadastro', 'caixa'])
         }
       }, err => {
         this.alertMensagem = err.message;
