@@ -1,25 +1,32 @@
 <div class="animated fadeIn" style="margin:10px">
     <div class="row">
         <div class="col-sm-12">
-            <div class="card">
-                <div class="card-header">
-                    <strong>Cor</strong>
-                    <small>Cadastro</small>
-                </div>
-                <form [formGroup]="myForm" novalidate>
-                    <div class="card-body">
+            <div class="modal-header">
+                <button type="button" class="close" (click)="dialogRef.hide()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card">
+                    <div class="card-header">
+                        <strong>Cor</strong>
+                        <small>Cadastro</small>
+                    </div>
+                    <form [formGroup]="myForm" novalidate>
+                        <div class="card-body">
 
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <label>Cor</label>
-                                    <input type="text" formControlName="descricao" class="form-control">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label>Cor</label>
+                                        <input type="text" formControlName="descricao" class="form-control">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                    </div>
-                </form>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
         <!--/.col-->
@@ -27,6 +34,7 @@
     <!--/.row-->
 </div>
 <div style="margin:10px" class="text-right">
-    <button type="button" class="btn btn-primary btn-lg" [disabled]='!this.myForm.valid' (click)="salvar()">Salvar</button>
+    <button type="button" class="btn btn-primary btn-lg" [disabled]='!this.myForm.valid'
+        (click)="salvar()">Salvar</button>
     <button type="button" class="btn btn-danger btn-lg" (click)="dialogRef.hide()">Cancelar</button>
 </div>

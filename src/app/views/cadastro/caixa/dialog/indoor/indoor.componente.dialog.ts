@@ -12,7 +12,7 @@ import { Objeto } from '../../../../../models/objeto.model';
 //     styleUrls: ['./caixa.form.component.scss']
 //   })
 //   export class CaixaFormComponent implements OnInit {
-  
+
 
 @Component({
     selector: 'indoor.component.dialog',
@@ -21,13 +21,17 @@ import { Objeto } from '../../../../../models/objeto.model';
 export class IndoorDialog implements OnInit {
 
     itens: Objeto[] = [];
-    
+
 
     constructor(public bsModalRef: BsModalRef) {
         console.log(JSON.stringify(this.itens))
-     }
+    }
 
     ngOnInit() {
 
+    }
+
+    close() {
+        this.bsModalRef.hide()
     }
 }

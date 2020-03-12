@@ -11,7 +11,6 @@ import { TipoDialog } from './dialog/tipo/tipo.componente.dialog';
 import { LocalDialog } from './dialog/local/local.componente.dialog';
 import { CorDialog } from './dialog/cor/cor.componente.dialog';
 import { QRCodeModule } from 'angularx-qrcode'
-import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { IndoorDialog } from './dialog/indoor/indoor.componente.dialog';
 
 @NgModule({
@@ -24,7 +23,6 @@ import { IndoorDialog } from './dialog/indoor/indoor.componente.dialog';
     FormsModule,
     ReactiveFormsModule,
     QRCodeModule,
-    ToastrModule.forRoot()
   ],
   declarations: [
     CaixaListComponent,
@@ -37,7 +35,6 @@ import { IndoorDialog } from './dialog/indoor/indoor.componente.dialog';
   providers: [
     CaixaService,
     BsModalRef,
-    ToastrService,
     BsModalService,
   ]
 })

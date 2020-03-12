@@ -61,7 +61,8 @@
                 <div class="form-group">
                   <label for="name">Caixa</label>
                   <select class="form-control" formControlName="caixaCodigo">
-                    <option *ngFor="let caixa of caixas" [value]="caixa.codigo">{{caixa.tipo}} | {{caixa.cor}}</option>
+                    <option *ngFor="let caixa of caixas" [value]="caixa.codigo">{{caixa.codigo}} - {{caixa.tipo.descricao}}
+                      {{caixa.cor.descricao}} em {{caixa.local.descricao}}</option>
                   </select>
                 </div>
               </div>
@@ -120,12 +121,14 @@
   <!--/.row-->
 </div>
 <div class="text-right">
-  <button type="button" class="btn btn-primary" [disabled]="!this.myForm.valid" (click)="salvar()">Salvar</button>
-  <a type="reset" class="btn border-primary" [routerLink]="['/cadastro', 'caixa']">Voltar</a>
-  <button type="reset" class="btn btn-danger" [disabled]="this.myForm.value.codigo == 0"
-    (click)="delete()">Excluir</button>
-  <button type="button" class="btn btn-info" [disabled]="this.myForm.value.codigo == 0" (click)="listarItens()">Ver
-    Itens</button>
+  <button class="btn btn-primary" [disabled]="!this.myForm.valid" (click)="salvar()">Salvar</button>
+  <button class="btn btn-danger" [disabled]="this.myForm.value.codigo == 0" (click)="delete()">Excluir</button>
+  <button class="btn btn-outline-primary" [routerLink]="['/cadastro', 'caixa']">Cancelar</button>
+  <button class="btn btn-outline-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Opçoes</button>
+  <div class="dropdown-menu">
+    <a class="dropdown-item" (click)="listarItens()">Ver Itens</a>
+    <a class="dropdown-item" (click)="listarItens()">QR Code</a>
+  </div>
 </div>
 
 
@@ -136,7 +139,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title">Modal title</h4>
+        <h4 class="modal-title">Cadasto Caixa</h4>
         <button type="button" class="close" (click)="myModal.hide()" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -158,7 +161,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title">Modal title</h4>
+        <h4 class="modal-title">Itens</h4>
         <button type="button" class="close" (click)="itemModal.hide()" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -184,8 +187,7 @@
         </table>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="itemModal.hide()">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" (click)="itemModal.hide()">Fechar</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

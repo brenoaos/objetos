@@ -26,7 +26,6 @@ export class CaixaListComponent implements OnInit {
   constructor(
     private _servico: CaixaService,
     private readonly _servicoObjeto: ObjetoService,
-    private _toastService: ToastrService,
     private _modal: BsModalService
   ) {
     this.filter = {
@@ -43,7 +42,6 @@ export class CaixaListComponent implements OnInit {
   }
 
   atualizarLista() {
-
     this._servico.getCaixas(this.filter).subscribe((rest) => {
       this.caixas = rest.registros;
       this.paginas = rest.quantidadeTotal / this.paginacao;
@@ -54,12 +52,6 @@ export class CaixaListComponent implements OnInit {
         this._servico.getTipoByID(c.tipo).subscribe(tipo => c.tipo = tipo)
       })
     });
-
-    this.showSuccess();
-  }
-
-  showSuccess() {
-    this._toastService.success('Hello world!', 'Toastr fun!');
   }
 
   pesquisaCaixa(valor) {
