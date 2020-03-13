@@ -9,7 +9,7 @@ import { TipoDialog } from '../dialog/tipo/tipo.componente.dialog';
 import { LocalDialog } from '../dialog/local/local.componente.dialog';
 import { CorDialog } from '../dialog/cor/cor.componente.dialog';
 import { ToastyService, ToastyConfig, ToastOptions, ToastData } from 'ng2-toasty';
-import {Subject, Observable, Subscription} from 'rxjs/';
+import { Subject, Observable, Subscription } from 'rxjs/';
 // import QRCode from 'qrcode'
 @Component({
   selector: 'app-caixa-form',
@@ -40,7 +40,10 @@ export class CaixaFormComponent implements OnInit {
     private readonly _formBuilder: FormBuilder,
     private _dialog: BsModalService,
     private readonly _toastyService: ToastyService,
-  ) { }
+    private readonly _toastyConfig: ToastyConfig,
+  ) {
+    this._toastyConfig.theme = 'bootstrap';
+  }
 
   ngOnInit() {
     this.myForm = this._formBuilder.group({
@@ -83,7 +86,7 @@ export class CaixaFormComponent implements OnInit {
       msg: "The message",
       showClose: true,
       timeout: 5000,
-      theme: 'default',
+      theme: 'bootstrap',
       onAdd: (toast: ToastData) => {
         console.log('Toast ' + toast.id + ' has been added!');
       },
@@ -177,8 +180,10 @@ export class CaixaFormComponent implements OnInit {
           this._router.navigate(['cadastro', 'caixa'])
         }
       }, err => {
-        this.alertMensagem = err.message;
-        this.myModal.show()
+        this._toastyService.error({
+          title: "Erro!",
+          msg: err.message
+        });
       }
       );
     }
