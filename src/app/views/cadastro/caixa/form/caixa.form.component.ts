@@ -8,6 +8,8 @@ import { ModalDirective, BsModalService, ModalOptions } from 'ngx-bootstrap';
 import { TipoDialog } from '../dialog/tipo/tipo.componente.dialog';
 import { LocalDialog } from '../dialog/local/local.componente.dialog';
 import { CorDialog } from '../dialog/cor/cor.componente.dialog';
+import { ToastyService, ToastyConfig, ToastOptions, ToastData } from 'ng2-toasty';
+import {Subject, Observable, Subscription} from 'rxjs/';
 // import QRCode from 'qrcode'
 @Component({
   selector: 'app-caixa-form',
@@ -36,7 +38,8 @@ export class CaixaFormComponent implements OnInit {
     private readonly _router: Router,
     private readonly _activeRouter: ActivatedRoute,
     private readonly _formBuilder: FormBuilder,
-    private _dialog: BsModalService
+    private _dialog: BsModalService,
+    private readonly _toastyService: ToastyService,
   ) { }
 
   ngOnInit() {
@@ -67,6 +70,37 @@ export class CaixaFormComponent implements OnInit {
     this.getLocais();
     this.getCaixas();
   }
+
+
+
+
+  addToast() {
+    // Just add default Toast with title only
+    this._toastyService.default('Hi there');
+    // Or create the instance of ToastOptions
+    var toastOptions: ToastOptions = {
+      title: "My title",
+      msg: "The message",
+      showClose: true,
+      timeout: 5000,
+      theme: 'default',
+      onAdd: (toast: ToastData) => {
+        console.log('Toast ' + toast.id + ' has been added!');
+      },
+      onRemove: function (toast: ToastData) {
+        console.log('Toast ' + toast.id + ' has been removed!');
+      }
+    };
+    // Add see all possible types in one shot
+    this._toastyService.info(toastOptions);
+    this._toastyService.success(toastOptions);
+    this._toastyService.wait(toastOptions);
+    this._toastyService.error(toastOptions);
+    this._toastyService.warning(toastOptions);
+  }
+
+
+
 
   getTipoById(caixa, callback) {
     this._service.getTipoByID(caixa.tipo).subscribe((t: any) => {
@@ -135,11 +169,11 @@ export class CaixaFormComponent implements OnInit {
 
   salvar() {
     if (this.myForm.valid) {
-      this._service.salvar(this.myForm.value).subscribe((p: Caixa) => {     
+      this._service.salvar(this.myForm.value).subscribe((p: Caixa) => {
         if (this.novoRegistro) {
           this.myModal.show()
         }
-        else{
+        else {
           this._router.navigate(['cadastro', 'caixa'])
         }
       }, err => {
