@@ -5,6 +5,7 @@ import { ModalDirective, BsModalService } from 'ngx-bootstrap';
 import { ObjetoService } from '../../objeto/objeto.service';
 import { IndoorDialog } from '../dialog/indoor/indoor.componente.dialog'
 import { ToastrService } from 'ngx-toastr';
+import { PessoaService } from '../../pessoa/pessoa.service';
 
 @Component({
   selector: 'app-caixa-list',
@@ -29,6 +30,7 @@ export class CaixaListComponent implements OnInit {
     private readonly _servicoObjeto: ObjetoService,
     private _modal: BsModalService,
     private readonly _toastyService: ToastrService,
+    private readonly _pessoaService: PessoaService,
   ) {
     this.filter = {
       take: this.paginacao,
@@ -57,7 +59,7 @@ export class CaixaListComponent implements OnInit {
         this._servico.getTipoByID(c.tipo).subscribe(tipo => c.tipo = tipo)
       })
     }, (err) => {
-      this.loader =  false
+      this.loader = false
       this._toastyService.error(err.message, "Erro ao salvar")
     });
   }
@@ -75,7 +77,10 @@ export class CaixaListComponent implements OnInit {
 
   removerCaixa(codigo) {
     this._servico.deleteCaixa(codigo)
-      .subscribe(() => this.atualizarLista());
+      .subscribe(
+        () => { this._toastyService.success('Removido com sucesso!'); this.atualizarLista(); },
+        (err) => { this._toastyService.error(err.message, 'Erro!') }
+      );
   }
 
   nextPage() {
@@ -105,15 +110,17 @@ export class CaixaListComponent implements OnInit {
   }
 
   verItens(codigo) {
-    debugger
     let filtro = {
       caixaCodigo: codigo
     };
-
     this._servico.getItens(filtro).subscribe((d) => {
-      let initialState = { itens: d.registros}
-      this._modal.show(IndoorDialog, {initialState})
-    })
+      d.registros.forEach( r => {
+        debugger
+        this._pessoaService.getPessoasByID(r.donoCodigo).subscribe((p) => r.donoCodigo = p, err => this._toastyService.error(err.message, "Mapa de pessoa!"))
+      });
+      let initialState = { itens: d.registros }
+      this._modal.show(IndoorDialog, { initialState })
+    }, (err) => this._toastyService.error(err.message, 'Erro'))
   }
 
 }

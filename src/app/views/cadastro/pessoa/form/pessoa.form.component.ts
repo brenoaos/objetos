@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, FormsModule, NgForm, Validators } from '@angula
 import { PessoaService } from '../pessoa.service';
 import { Pessoa } from '../../../../models/pessoa.model';
 import { Router, ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-pessoa-form',
@@ -19,6 +20,7 @@ export class PessoaFormComponent implements OnInit {
     private readonly _router: Router,
     private readonly _activeRouter: ActivatedRoute,
     private readonly _formBuilder: FormBuilder,
+    private readonly _toastyService: ToastrService,
   ) { }
 
   ngOnInit() {
@@ -50,9 +52,13 @@ export class PessoaFormComponent implements OnInit {
     if (this.myForm.valid) {
       this._service.salvar(this.myForm.value).subscribe((p: Pessoa) => {
         if (p.codigo) {
+          this._toastyService.success('Registro incluído com sucesso!');
           this._router.navigate(['/cadastro/pessoa']);
         }
-      });
+      },
+        (err) => {
+          this._toastyService.error(err.message, 'Erro');
+        });
     }
   }
 
@@ -60,8 +66,12 @@ export class PessoaFormComponent implements OnInit {
   delete() {
     let codigo = this.myForm.value.codigo;
     if (codigo !== 0) {
-      this._service.deletePessoa(codigo).subscribe(() => this._router.navigate(['cadastro', 'pessoa'] ))
+      this._service.deletePessoa(codigo).subscribe(
+        () => {
+          this._toastyService.success('Removido com sucesso!')
+          this._router.navigate(['cadastro', 'pessoa'])
+        },
+        (err) => this._toastyService.error(err.messager, 'Erro'))
     }
   }
-
 }

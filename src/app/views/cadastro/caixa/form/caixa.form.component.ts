@@ -39,18 +39,19 @@ export class CaixaFormComponent implements OnInit {
     private readonly _activeRouter: ActivatedRoute,
     private readonly _formBuilder: FormBuilder,
     private _dialog: BsModalService,
+    private _modalService: BsModalService,
     private readonly _toastyService: ToastrService,
   ) { }
 
   ngOnInit() {
     this.myForm = this._formBuilder.group({
       codigo: [0, []],
-      tipo: ['', [Validators.required]],
-      cor: ['', [Validators.required]],
-      local: ['', [Validators.required]],
+      tipo: [0, [Validators.required]],
+      cor: [0, [Validators.required]],
+      local: [0, [Validators.required]],
       altura: [0, []],
       largura: [0, []],
-      caixaCodigo: [null, []],
+      caixaCodigo: [0, []],
       comprimento: [0, []],
       observacao: ['', []]
     })
@@ -146,7 +147,6 @@ export class CaixaFormComponent implements OnInit {
           this._router.navigate(['cadastro', 'caixa'])
         }
       }, err => {
-        debugger
         this._toastyService.error(err.message, 'Erro ao salvar!');
       }
       );
@@ -167,9 +167,14 @@ export class CaixaFormComponent implements OnInit {
   }
 
   delete() {
-    this._service.deleteCaixa(this.myForm.value.codigo).subscribe((value) => { this._router.navigate(['cadastro', 'caixa']) }, (err) => {
-      console.log(err.toString())
-    })
+    this._service.deleteCaixa(this.myForm.value.codigo).subscribe((value) => {
+      debugger
+      this._toastyService.success('Removido com sucesso!');
+      this._router.navigate(['cadastro', 'caixa'])
+    },
+      (err) => {
+        this._toastyService.error(err.message, 'Erro!')
+      })
   }
 
   dialogTipo() {
