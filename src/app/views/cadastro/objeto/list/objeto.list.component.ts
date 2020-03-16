@@ -19,7 +19,7 @@ export class ObjetoListComponent implements OnInit {
   public paginacao: number = 15;
   public offset: number = 0;
   public filter: any;
-  public loader: boolean= true;
+  public loader: boolean = true;
   @ViewChild('searchComponent') searchComponent: string;
 
   constructor(
@@ -50,7 +50,15 @@ export class ObjetoListComponent implements OnInit {
       this.objetos.forEach(o => {
 
         o['status'] = (o.caixaCodigo !== 0 ? 'Guardado' : 'Desalocado')
-        this.pessoaService.getPessoasByID(o.donoCodigo).subscribe(p => o['dono'] = p);
+        if (o.donoCodigo > 0){
+          this.pessoaService.getPessoasByID(o.donoCodigo).subscribe(p => o['dono'] = p);
+        } else {
+          o['dono'] = {
+            "codigo": 0,
+            "apelido": "Sem dono",
+          }
+        }
+        
       })
     }, (err) => {
       this._toastService.error(err.message, 'Erro')
@@ -59,11 +67,15 @@ export class ObjetoListComponent implements OnInit {
 
   pesquisaObjeto(valor) {
     // {"where":{"nome":"Breno"}, "take":1}
+    debugger
     const salvaFiltro = this.filter;
     if (valor.value) {
       this.filter = {
-        nome: valor.value
-      };
+        like: [
+          { nome: valor.value },
+          { descricao: valor.value }
+        ]
+      }
     }
     this.atualizarLista();
     this.filter = salvaFiltro;

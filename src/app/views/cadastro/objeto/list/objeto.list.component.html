@@ -11,7 +11,7 @@
             <div class="col-sm-7">
               <div #searchComponent class="form-group row">
                 <input class="form-control" type="text" nome="search" id="search"
-                  placeholder="Insira seu criterio de busca" #searchInput>
+                  placeholder="Insira seu criterio de busca" #searchInput (keyup)="pesquisaObjeto(searchInput)">
               </div>
             </div>
             <div class="col-sm-3">
@@ -31,8 +31,8 @@
             <span class="sr-only">Loading...</span>
           </div>
         </div>
-        
-        <table class="table" *ngIf="objetos.length > 0">
+
+        <table class="table" *ngIf="objetos.length > 0 && !loader">
           <thead>
             <tr>
               <th scope="col">ID</th>
@@ -64,7 +64,7 @@
           </tbody>
         </table>
 
-        <div class="row" *ngIf="objetos.length == 0">
+        <div class="row" *ngIf="objetos.length == 0 && !loader">
           <div class="col-sm-12">
             <h3 class="text-center"> Nenhum registro encontrado! </h3>
           </div>
