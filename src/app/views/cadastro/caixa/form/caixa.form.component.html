@@ -144,8 +144,12 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
-        <!-- <qrcode [qrdata]="'testando'" [width]="256" [errorCorrectionLevel]="'M'"></qrcode> -->
+      <div class="modal-body text-center">
+        <h3>Caixa</h3>
+        <div>
+          <b>Codigo:</b> {{myForm.value.codigo}} <br>
+        </div>
+        <qrcode [qrdata]="'testando'" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)="myModal.hide()">Close</button>

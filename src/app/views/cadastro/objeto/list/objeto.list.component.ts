@@ -4,6 +4,7 @@ import { ObjetoService } from '../objeto.service';
 import { Objeto } from '../../../../models/objeto.model';
 import { Filter } from '../../../../core/utils';
 import { PessoaService } from '../../pessoa/pessoa.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-objeto-list',
@@ -22,7 +23,8 @@ export class ObjetoListComponent implements OnInit {
 
   constructor(
     private servico: ObjetoService,
-    private pessoaService: PessoaService
+    private pessoaService: PessoaService,
+    private readonly _toastService: ToastrService,
   ) {
     this.filter = {
       take: this.paginacao,
@@ -44,10 +46,12 @@ export class ObjetoListComponent implements OnInit {
       this.paginas = rest.quantidadeTotal / this.paginacao;
       this.qdeRegistro = rest.quantidadeTotal;
       this.objetos.forEach(o => {
-        
-        o['status'] = (o.caixaCodigo !== 0 ? 'Guardado' : 'Deslocado')
+
+        o['status'] = (o.caixaCodigo !== 0 ? 'Guardado' : 'Desalocado')
         this.pessoaService.getPessoasByID(o.donoCodigo).subscribe(p => o['dono'] = p);
       })
+    }, (err) => {
+      this._toastService.error(err.message, 'Erro')
     });
   }
 
@@ -65,7 +69,12 @@ export class ObjetoListComponent implements OnInit {
 
   removerObjeto(codigo) {
     this.servico.deleteObjeto(codigo)
-      .subscribe(() => this.atualizarLista());
+      .subscribe(() => {
+        this.atualizarLista();
+        this._toastService.success('Removido com sucesso!');
+      }, (err) => {
+        this._toastService.error(err.message, 'Erro')
+      });
   }
 
   nextPage() {

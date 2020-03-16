@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { PessoaService } from '../pessoa.service';
 import { Pessoa } from '../../../../models/pessoa.model';
 import { Filter } from '../../../../core/utils'
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-pessoa-list',
@@ -21,7 +22,8 @@ export class PessoaListComponent implements OnInit {
 
 
   constructor(
-    private servico: PessoaService
+    private servico: PessoaService,
+    private readonly _toastyService: ToastrService,
   ) {
     this.filter = {
       take: this.paginacao,
@@ -61,7 +63,7 @@ export class PessoaListComponent implements OnInit {
 
   removerPessoa(codigo) {
     this.servico.deletePessoa(codigo)
-      .subscribe(() => this.atualizarLista());
+      .subscribe(() => {this._toastyService.success('Removido com sucesso!'); this.atualizarLista()});
   }
 
   nextPage() {

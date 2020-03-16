@@ -6,6 +6,7 @@ import { ObjetoListComponent } from './list/objeto.list.component';
 import { ObjetoFormComponent } from './form/objeto.form.component';
 import { ObjetoService } from './objeto.service';
 import { HttpClientModule } from '@angular/common/http';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   imports: [
@@ -13,7 +14,8 @@ import { HttpClientModule } from '@angular/common/http';
     ObjetoRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ToastrModule.forRoot(),
   ],
   declarations: [
     ObjetoListComponent,

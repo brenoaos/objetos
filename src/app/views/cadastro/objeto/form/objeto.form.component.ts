@@ -9,6 +9,7 @@ import { PessoaService } from '../../pessoa/pessoa.service';
 import { stringify } from 'querystring';
 import { CaixaService } from '../../caixa/caixa.service';
 import { Caixa } from '../../../../models/caixa.model';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-objeto-form',
@@ -21,6 +22,7 @@ export class ObjetoFormComponent implements OnInit {
 
   myForm: FormGroup;
   caixas: Caixa[] = [];
+  novoRegistro: boolean = true;
 
   constructor(
     private _service: ObjetoService,
@@ -28,7 +30,8 @@ export class ObjetoFormComponent implements OnInit {
     private readonly _pessoaService: PessoaService,
     private readonly _caixaService: CaixaService,
     private readonly _activeRouter: ActivatedRoute,
-    private readonly _formBuilder: FormBuilder
+    private readonly _formBuilder: FormBuilder,
+    private readonly _toastyService: ToastrService,
   ) { }
 
   ngOnInit() {
@@ -36,21 +39,21 @@ export class ObjetoFormComponent implements OnInit {
       codigo: [0, []],
       nome: ['', [Validators.required]],
       descricao: ['', [Validators.required]],
-      altura:[0.00, []],
-      largura:[0.00, []],
-      comprimento:[0.00, []],
-      peso:[0.00, []],
-      cor: ['', []],
-      material: ['', []],
+      altura: [0.00, []],
+      largura: [0.00, []],
+      comprimento: [0.00, []],
+      peso: [0.00, []],
+      cor: [0, []],
+      material: [0, []],
       tensao: [0, []],
-      donoCodigo: [null, [Validators.required]],
-      caixaCodigo: [null, []],
-      zeladorCodigo: [null, []],
+      donoCodigo: [0, [Validators.required]],
+      caixaCodigo: [0, []],
+      zeladorCodigo: [0, []],
       dataValidade: [null, []],
       chaveAcessoNotaFiscal: ['', []],
       observacao: ['', []]
     })
-    
+
     this.getCaixas();
     this.getPessoas();
 
@@ -60,6 +63,9 @@ export class ObjetoFormComponent implements OnInit {
         this._service.getObjetosById(codigo).subscribe((p) => {
           console.log(JSON.stringify(p))
           this.myForm.setValue(p);
+          this.novoRegistro = false
+        }, (err) => {
+          this._toastyService.error(err.message, 'Erro')
         });
       }
     });
@@ -67,10 +73,15 @@ export class ObjetoFormComponent implements OnInit {
 
   salvar() {
     this._service.salvar(this.myForm.value).subscribe((p: Objeto) => {
-      if (p.codigo) {
-        this._router.navigate(['/cadastro/objeto']);
+      if (this.novoRegistro) {
+        this._toastyService.success('Registro incluído com sucesso!');
+      } else {
+        this._toastyService.success('Registro Alterado com sucesso!');
       }
-    });
+
+      this._router.navigate(['/cadastro/objeto']);
+      
+    }, (err) => this._toastyService.error(err.message, 'Erro'));
   }
 
   getPessoas(formInput?: any) {
@@ -82,12 +93,14 @@ export class ObjetoFormComponent implements OnInit {
           { 'nome': formInput.value },
           { 'sobrenome': formInput.value },
         ],
-        where: [{"codigo": this.myForm.value.codigo}],
+        where: [{ "codigo": this.myForm.value.codigo }],
         'isDono': true
       };
     }
     this._pessoaService.getPessoas(filter).subscribe((p) => {
       this.pessoas = p.registros;
+    }, (err) => {
+      this._toastyService.error(err.message, 'Erro')
     });
   }
 
@@ -103,9 +116,8 @@ export class ObjetoFormComponent implements OnInit {
   }
 
   delete(codigo?: number): void {
-    if(!codigo) codigo = this.myForm.value.codigo;    
-    this._service.deleteObjeto(codigo).subscribe();
+    if (!codigo) codigo = this.myForm.value.codigo;
+    this._service.deleteObjeto(codigo).subscribe(null, err => this._toastyService.error(err.message, 'Erro'));
   }
 
-  
 }
