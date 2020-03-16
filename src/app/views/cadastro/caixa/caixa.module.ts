@@ -12,7 +12,7 @@ import { LocalDialog } from './dialog/local/local.componente.dialog';
 import { CorDialog } from './dialog/cor/cor.componente.dialog';
 import { QRCodeModule } from 'angularx-qrcode'
 import { IndoorDialog } from './dialog/indoor/indoor.componente.dialog';
-import { ToastyService, ToastyModule } from 'ng2-toasty';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   imports: [
@@ -24,7 +24,7 @@ import { ToastyService, ToastyModule } from 'ng2-toasty';
     FormsModule,
     ReactiveFormsModule,
     QRCodeModule,
-    ToastyModule.forRoot()
+    ToastrModule.forRoot(),
   ],
   declarations: [
     CaixaListComponent,

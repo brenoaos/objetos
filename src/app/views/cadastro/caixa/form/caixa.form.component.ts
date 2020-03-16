@@ -8,8 +8,8 @@ import { ModalDirective, BsModalService, ModalOptions } from 'ngx-bootstrap';
 import { TipoDialog } from '../dialog/tipo/tipo.componente.dialog';
 import { LocalDialog } from '../dialog/local/local.componente.dialog';
 import { CorDialog } from '../dialog/cor/cor.componente.dialog';
-import { ToastyService, ToastyConfig, ToastOptions, ToastData } from 'ng2-toasty';
-import { Subject, Observable, Subscription } from 'rxjs/';
+import { ToastrService } from 'ngx-toastr';
+
 // import QRCode from 'qrcode'
 @Component({
   selector: 'app-caixa-form',
@@ -39,11 +39,8 @@ export class CaixaFormComponent implements OnInit {
     private readonly _activeRouter: ActivatedRoute,
     private readonly _formBuilder: FormBuilder,
     private _dialog: BsModalService,
-    private readonly _toastyService: ToastyService,
-    private readonly _toastyConfig: ToastyConfig,
-  ) {
-    this._toastyConfig.theme = 'bootstrap';
-  }
+    private readonly _toastyService: ToastrService,
+  ) { }
 
   ngOnInit() {
     this.myForm = this._formBuilder.group({
@@ -73,37 +70,6 @@ export class CaixaFormComponent implements OnInit {
     this.getLocais();
     this.getCaixas();
   }
-
-
-
-
-  addToast() {
-    // Just add default Toast with title only
-    this._toastyService.default('Hi there');
-    // Or create the instance of ToastOptions
-    var toastOptions: ToastOptions = {
-      title: "My title",
-      msg: "The message",
-      showClose: true,
-      timeout: 5000,
-      theme: 'bootstrap',
-      onAdd: (toast: ToastData) => {
-        console.log('Toast ' + toast.id + ' has been added!');
-      },
-      onRemove: function (toast: ToastData) {
-        console.log('Toast ' + toast.id + ' has been removed!');
-      }
-    };
-    // Add see all possible types in one shot
-    this._toastyService.info(toastOptions);
-    this._toastyService.success(toastOptions);
-    this._toastyService.wait(toastOptions);
-    this._toastyService.error(toastOptions);
-    this._toastyService.warning(toastOptions);
-  }
-
-
-
 
   getTipoById(caixa, callback) {
     this._service.getTipoByID(caixa.tipo).subscribe((t: any) => {
@@ -180,10 +146,8 @@ export class CaixaFormComponent implements OnInit {
           this._router.navigate(['cadastro', 'caixa'])
         }
       }, err => {
-        this._toastyService.error({
-          title: "Erro!",
-          msg: err.message
-        });
+        debugger
+        this._toastyService.error(err.message, 'Erro ao salvar!');
       }
       );
     }

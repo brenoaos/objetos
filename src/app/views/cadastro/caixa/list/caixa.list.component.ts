@@ -4,7 +4,7 @@ import { Caixa } from '../../../../models/caixa.model';
 import { ModalDirective, BsModalService } from 'ngx-bootstrap';
 import { ObjetoService } from '../../objeto/objeto.service';
 import { IndoorDialog } from '../dialog/indoor/indoor.componente.dialog'
-import { ToastyService } from 'ng2-toasty'
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-caixa-list',
@@ -28,7 +28,7 @@ export class CaixaListComponent implements OnInit {
     private _servico: CaixaService,
     private readonly _servicoObjeto: ObjetoService,
     private _modal: BsModalService,
-    private readonly _toastyService: ToastyService,
+    private readonly _toastyService: ToastrService,
   ) {
     this.filter = {
       take: this.paginacao,
@@ -58,12 +58,11 @@ export class CaixaListComponent implements OnInit {
       })
     }, (err) => {
       this.loader =  false
-      alert(err.message);
+      this._toastyService.error(err.message, "Erro ao salvar")
     });
   }
 
   pesquisaCaixa(valor) {
-    // {"where":{"nome":"Breno"}, "take":1}
     let salvaFiltro = this.filter;
     if (valor.value) {
       this.filter = {

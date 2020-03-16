@@ -41,7 +41,7 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts';
 import { FormsModule } from '@angular/forms';
 import { ModalModule } from 'ngx-bootstrap';
-import { ToastyModule } from 'ng2-toasty';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   imports: [
@@ -61,7 +61,7 @@ import { ToastyModule } from 'ng2-toasty';
     FormsModule,
     ModalModule,
     ModalModule.forRoot(),
-    ToastyModule.forRoot(),
+    ToastrModule.forRoot()
   ],
   declarations: [
     AppComponent,
@@ -75,7 +75,7 @@ import { ToastyModule } from 'ng2-toasty';
     provide: LocationStrategy,
     useClass: HashLocationStrategy
   }],
-  exports: [ToastyModule],
+  exports: [ToastrModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
