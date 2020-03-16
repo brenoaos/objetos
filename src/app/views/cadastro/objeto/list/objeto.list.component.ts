@@ -19,6 +19,7 @@ export class ObjetoListComponent implements OnInit {
   public paginacao: number = 15;
   public offset: number = 0;
   public filter: any;
+  public loader: boolean= true;
   @ViewChild('searchComponent') searchComponent: string;
 
   constructor(
@@ -40,8 +41,9 @@ export class ObjetoListComponent implements OnInit {
   }
 
   atualizarLista() {
-
+    this.loader = true;
     this.servico.getObjetos(this.filter).subscribe((rest) => {
+      this.loader = false
       this.objetos = rest.registros;
       this.paginas = rest.quantidadeTotal / this.paginacao;
       this.qdeRegistro = rest.quantidadeTotal;

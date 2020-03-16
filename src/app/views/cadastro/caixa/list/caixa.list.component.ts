@@ -110,17 +110,7 @@ export class CaixaListComponent implements OnInit {
   }
 
   verItens(codigo) {
-    let filtro = {
-      caixaCodigo: codigo
-    };
-    this._servico.getItens(filtro).subscribe((d) => {
-      d.registros.forEach( r => {
-        debugger
-        this._pessoaService.getPessoasByID(r.donoCodigo).subscribe((p) => r.donoCodigo = p, err => this._toastyService.error(err.message, "Mapa de pessoa!"))
-      });
-      let initialState = { itens: d.registros }
-      this._modal.show(IndoorDialog, { initialState })
-    }, (err) => this._toastyService.error(err.message, 'Erro'))
+    this._servico.verItens(codigo);
   }
 
 }
