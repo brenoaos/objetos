@@ -8,6 +8,8 @@ import { ModalDirective, BsModalService, ModalOptions } from 'ngx-bootstrap';
 import { TipoDialog } from '../dialog/tipo/tipo.componente.dialog';
 import { LocalDialog } from '../dialog/local/local.componente.dialog';
 import { CorDialog } from '../dialog/cor/cor.componente.dialog';
+import { ToastrService } from 'ngx-toastr';
+
 // import QRCode from 'qrcode'
 @Component({
   selector: 'app-caixa-form',
@@ -36,7 +38,8 @@ export class CaixaFormComponent implements OnInit {
     private readonly _router: Router,
     private readonly _activeRouter: ActivatedRoute,
     private readonly _formBuilder: FormBuilder,
-    private _dialog: BsModalService
+    private _dialog: BsModalService,
+    private readonly _toastyService: ToastrService,
   ) { }
 
   ngOnInit() {
@@ -135,16 +138,16 @@ export class CaixaFormComponent implements OnInit {
 
   salvar() {
     if (this.myForm.valid) {
-      this._service.salvar(this.myForm.value).subscribe((p: Caixa) => {     
+      this._service.salvar(this.myForm.value).subscribe((p: Caixa) => {
         if (this.novoRegistro) {
           this.myModal.show()
         }
-        else{
+        else {
           this._router.navigate(['cadastro', 'caixa'])
         }
       }, err => {
-        this.alertMensagem = err.message;
-        this.myModal.show()
+        debugger
+        this._toastyService.error(err.message, 'Erro ao salvar!');
       }
       );
     }

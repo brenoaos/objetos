@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
 import { CaixaService } from '../caixa.service';
 import { Caixa } from '../../../../models/caixa.model';
 import { ModalDirective, BsModalService } from 'ngx-bootstrap';
 import { ObjetoService } from '../../objeto/objeto.service';
 import { IndoorDialog } from '../dialog/indoor/indoor.componente.dialog'
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-caixa-list',
@@ -19,6 +19,7 @@ export class CaixaListComponent implements OnInit {
   public paginacao: number = 15;
   public offset: number = 0;
   public filter: any;
+  public loader: boolean;
 
   @ViewChild('searchComponent') searchComponent: string;
   @ViewChild('myModal') public myModal: ModalDirective;
@@ -26,7 +27,8 @@ export class CaixaListComponent implements OnInit {
   constructor(
     private _servico: CaixaService,
     private readonly _servicoObjeto: ObjetoService,
-    private _modal: BsModalService
+    private _modal: BsModalService,
+    private readonly _toastyService: ToastrService,
   ) {
     this.filter = {
       take: this.paginacao,
@@ -36,13 +38,16 @@ export class CaixaListComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.loader = true;
     this.atualizarLista();
 
   }
 
   atualizarLista() {
+    this.loader = true;
+    this.caixas = [];
     this._servico.getCaixas(this.filter).subscribe((rest) => {
+      this.loader = false;
       this.caixas = rest.registros;
       this.paginas = rest.quantidadeTotal / this.paginacao;
       this.qdeRegistro = rest.quantidadeTotal;
@@ -51,11 +56,13 @@ export class CaixaListComponent implements OnInit {
         this._servico.getLocalByID(c.local).subscribe(local => c.local = local)
         this._servico.getTipoByID(c.tipo).subscribe(tipo => c.tipo = tipo)
       })
+    }, (err) => {
+      this.loader =  false
+      this._toastyService.error(err.message, "Erro ao salvar")
     });
   }
 
   pesquisaCaixa(valor) {
-    // {"where":{"nome":"Breno"}, "take":1}
     let salvaFiltro = this.filter;
     if (valor.value) {
       this.filter = {
