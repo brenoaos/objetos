@@ -18,6 +18,7 @@ export class PessoaListComponent implements OnInit {
   public paginacao: number = 15;
   public offset: number = 0;
   public filter: any;
+  public loader: boolean =  true;
   @ViewChild('searchComponent') searchComponent: string
 
 
@@ -39,11 +40,13 @@ export class PessoaListComponent implements OnInit {
   }
 
   atualizarLista() {
+    this.loader = true
     this.servico.getPessoas(this.filter).subscribe((rest) => {
+      this.loader =  false
       this.pessoas = rest.registros;
       this.paginas = rest.quantidadeTotal / this.paginacao;
       this.qdeRegistro = rest.quantidadeTotal
-    });
+    }, err => { this._toastyService.error(err.message, 'Erro')});
   }
 
   pesquisaPessoa(valor) {

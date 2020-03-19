@@ -2,16 +2,22 @@ import { Caixa, CorCaixaEntity } from '../../../models/caixa.model';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, of, } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
-import { isString } from 'util';
-import { environment } from '../../../../environments/environment';
 import { urlApi } from '../../../app.api';
+import { PessoaService } from '../pessoa/pessoa.service';
+import { IndoorDialog } from './dialog/indoor/indoor.componente.dialog'
+import { BsModalService } from 'ngx-bootstrap';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable()
 export class CaixaService {
     url: string = `${urlApi()}/caixas`;
 
-    constructor(private http: HttpClient) {
+    constructor(
+        private http: HttpClient,
+        private readonly _pessoaService: PessoaService,
+        private _modal: BsModalService,
+        private readonly _toastyService: ToastrService
+        ) {
 
     }
 
@@ -62,11 +68,11 @@ export class CaixaService {
         return this.http.get(`${urlApi()}/caixa/cor/${codigo}`);
     }
 
-    getLocalByID(codigo: number): Observable<any>{
+    getLocalByID(codigo: number): Observable<any> {
         return this.http.get(`${urlApi()}/caixa/local/${codigo}`);
     }
 
-    getTipoByID(codigo: number): Observable<any>{
+    getTipoByID(codigo: number): Observable<any> {
         return this.http.get(`${urlApi()}/caixa/tipo/${codigo}`);
     }
 
@@ -90,6 +96,21 @@ export class CaixaService {
 
         return this.http.patch(this.url, caixa);
 
+    }
+
+    verItens(codigo) {
+        let filtro = {
+            caixaCodigo: codigo
+        };
+        this.getItens(filtro).subscribe((d) => {
+            d.registros.forEach(r => {
+                if (r.donoCodigo > 0) {
+                    this._pessoaService.getPessoasByID(r.donoCodigo).subscribe((p) => r.donoCodigo = p, err => this._toastyService.error(err.message, "Mapa de pessoa!"))
+                }
+            });
+            let initialState = { itens: d.registros }
+            this._modal.show(IndoorDialog, { initialState })
+        }, (err) => this._toastyService.error(err.message, 'Erro'))
     }
 
 }

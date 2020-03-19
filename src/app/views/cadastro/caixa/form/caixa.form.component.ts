@@ -177,6 +177,10 @@ export class CaixaFormComponent implements OnInit {
       })
   }
 
+  verItens(codigo) {
+    this._service.verItens(codigo);
+  }
+
   dialogTipo() {
     this._dialog.show(TipoDialog, {
       keyboard: true,
